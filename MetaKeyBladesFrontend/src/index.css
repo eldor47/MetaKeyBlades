@@ -1,0 +1,302 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(to bottom right, rgba(36, 36, 36), rgb(88, 88, 88));
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+input {
+  border-top-style: hidden;
+  border-right-style: hidden;
+  border-left-style: hidden;
+  border-bottom-style: groove;
+  font-size: 16px;
+  width: 100%;
+  border-color: rgba(4, 4, 5, 0.1);
+  line-height: 32px;
+}
+
+input:focus {
+  outline: none;
+  border-color: rgba(4, 4, 5, 0.4);
+}
+
+button {
+  padding: 9px 16px;
+  max-height: 40px;
+  border-color: rgba(158, 253, 230);
+  color: rgba(158, 250, 230);
+  background-color: transparent;
+  border-radius: 8px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  font-weight: bold;
+  cursor:pointer;
+}
+
+#title {
+  padding-top: 32px;
+}
+
+#status {
+  color:red;
+}
+
+.uploadFile {
+  border: 4px dashed rgba(4, 4, 5, 0.1);
+  border-radius: 16px;
+  text-align: center;
+  padding: 32px 60px;
+}
+
+#walletButton {
+  text-align: right;
+}
+.navBar{
+  font-size: 20px;
+  color: rgba(158, 253, 230);
+  width: 100%;
+}
+
+
+.nav-link {
+  color: rgba(158, 253, 230)!important;
+  padding-left: 10px!important;
+  padding-right: 10px!important;
+  margin: auto;
+  text-align: center;
+  font-weight: 300;
+}
+
+.text-link {
+  color: inherit;
+  text-decoration: inherit;
+  height: 30px;
+}
+
+.text-link:hover {
+  color: rgb(196, 250, 238);
+  cursor: pointer;
+}
+
+.text-link:focus {
+  color: inherit;
+  text-decoration: inherit;
+
+  padding-bottom: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 3.1px;
+  width: fit-content;
+}
+
+.Minter {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  max-width: 100vh;
+  max-height: 80vh;
+  padding: 30px 50px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+
+.aboutUs {
+  display: flex;
+  justify-content: center;
+  column-gap: 30px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  background-color: rgba(158, 250, 230);
+  background-image: linear-gradient(to right, rgba(158, 250, 230), rgba(158, 250, 202));
+  padding-left: 30px;
+  padding-right: 30px;
+}
+.aboutUsText {
+  margin-top: 50px;
+  color: black;
+  padding-bottom: 30px;
+  width: 75vw;
+  max-width: 900px;
+  min-width: 350px;
+  text-align: left;
+}
+.aboutUsText > button {
+  background-color: black;
+}
+
+.overview {
+  display: flex;
+  justify-content: center;
+  column-gap: 50px;
+  color: rgb(196, 250, 238);
+  padding-left: 30px;
+  padding-right: 30px;
+  flex-wrap: wrap;
+  max-width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.overviewText {
+  padding-top: 30px;
+  height: 540px;
+  padding: 20px;
+  width: 50vw;
+  max-width: 400px;
+  min-width: 350px;
+  text-align: left;
+  border: 4px solid rgb(88, 88, 88);
+  border-radius: 15px;
+  background-color: rgba(36, 36, 36);
+  margin-bottom: 50px;
+  flex-grow: 3;
+  margin-bottom: 30px;
+}
+
+.listItem {
+  font-size: 22px;
+  font-weight: 300;
+}
+
+h1 {
+  font-size: 3em;
+}
+
+.aboutUsText > p {
+  font-size: 22px;
+  font-weight: 300;
+}
+
+
+.logo {
+  width: 50vw;
+  max-width: 500px;
+  min-width: 330px;
+}
+
+.small-logo {
+  width: 75px;
+  margin-top: -10px;
+  margin-bottom: -20px;
+  padding-left: 10px;
+}
+
+
+.selected {
+  padding-bottom: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 3.1px;
+  width: fit-content;
+}
+
+.joinDisc {
+  text-decoration: none;
+  color: rgb(242, 255, 252);
+  font-weight: 300;
+}
+.joinDisc:hover {
+  text-decoration: none;
+  color: rgb(242, 255, 252);
+  font-weight: 300;
+}
+
+.faq {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  max-width: 100%;
+  background-color: rgba(158, 250, 230);
+  background-image: linear-gradient(to right, rgba(158, 250, 230), rgba(158, 250, 202));
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-bottom: 25px;
+  padding-top: 25px;
+}
+.faqText {
+  margin-top: 30px;
+  color: black;
+  padding-bottom: 30px;
+  width: 75vw;
+  max-width: 1200px;
+  min-width: 350px;
+  text-align: left;
+}
+
+.road-box{
+  display: flex;
+  border: 2px solid black;
+  margin-top: 20px;
+}
+.road-left{
+  border-right: 2px solid black;
+  padding: 30px;
+  padding-top: 45px;
+  width: 180px;
+  text-align: center;
+  background-color: black;
+  color: rgba(158, 250, 230);
+}
+.road-right {
+  padding: 20px;
+}
+
+
+
+.footer {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 100%;
+  color: rgb(196, 250, 238);
+  margin-bottom: 30px;
+}
+
+.footerText {
+  padding-top: 30px;
+  padding: 50px;
+  max-width: 1000px;
+  min-width: 350px;
+  text-align: left;
+}
+
+.footerDisc {
+  text-decoration: none;
+  color: rgba(36, 36, 36)!important;
+}
+.footerDisc:hover {
+  text-decoration: none;
+  color: gray;
+}
+
+.footer-button {
+  background-color: rgba(158, 250, 230);
+  border-color: rgb(40, 58, 54)!important;
+}
+
+.social {
+  text-decoration: none;
+  color: rgba(158, 250, 230)!important;
+}
+
+.social:hover {
+  text-decoration: none;
+  color: rgba(158, 250, 230);
+}
+
+.fa-discord{
+  margin-right: 50px;
+}
+
+.socialContainer {
+  width: 100%;
+  padding: 30px
+}
