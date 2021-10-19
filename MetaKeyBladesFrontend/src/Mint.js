@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
 import { connectWallet, getCurrentWalletConnected } from "./utils/interact";
+import { useDispatch, useSelector } from "react-redux";
+import { connect } from "./redux/blockchain/blockchainActions";
+import { fetchData } from "./redux/data/dataActions";
+import { Button } from "react-bootstrap";
 
 const Minter = (props) => {
 
@@ -9,6 +13,34 @@ const Minter = (props) => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [url, setURL] = useState("");
+
+  const dispatch = useDispatch();
+  const blockchain = useSelector((state) => state.blockchain);
+  const data = useSelector((state) => state.data);
+
+  const [feedback, setFeedback] = useState("Maybe it's your lucky day!");
+  const [claimingNft, setClaimingNft] = useState(false);
+
+  const claimNFTs = (_amount) =>{
+    setClaimingNft(true);
+    blockchain.smartContract.methods.mint(blockchain.account, _amount).send({
+      from: blockchain.account,
+      value: blockchain.web3.utils.toWei((0.06 * _amount).toString(), "ether")
+    }).once("error", (err) => {
+      console.log(err);
+      setFeedback("Error")
+      setClaimingNft(false)
+    }).then((receipt) => {
+      setFeedback('Success')
+      setClaimingNft(false)
+    })
+  };
+
+  useEffect(() => {
+    if (blockchain.account !== "" && blockchain.smartContract !== null) {
+      dispatch(fetchData(blockchain.account));
+    }
+  }, [blockchain.smartContract, dispatch]);
  
   useEffect(async () => { //TODO: implement
     const {address, status} = await getCurrentWalletConnected();
@@ -55,7 +87,48 @@ const Minter = (props) => {
 
   return (
     <div className="Minter">
-      <button id="walletButton" onClick={connectWalletPressed}>
+        {blockchain.account === "" || blockchain.smartContract === null ? (
+        <div>
+          <s.TextTitle>Connect to the Network</s.TextTitle>
+          <Button
+            onClick={(e) => {
+              e.preventDefault();
+              dispatch(connect());
+            }}
+          >
+            CONNECT
+          </Button>
+          {blockchain.errorMsg !== "" ? (
+            <p>{blockchain.errorMsg}</p>
+          ) : null}
+          </div>
+        ) : (
+          <div>
+            <h1 style={{ textAlign: "center" }}>
+              Name: {data.name}.
+            </h1>
+            <p style={{ textAlign: "center" }}>{feedback}</p>
+            <Button
+            disabled={claimingNft ? 1:0}
+              onClick={(e) => {
+                e.preventDefault();
+                claimNFTs(1);
+              }}
+            >
+              {claimingNft ? "Processing..." : "Mint 1 NFT"}
+            </Button>
+            <Button
+            disabled={claimingNft ? 1:0}
+              onClick={(e) => {
+                e.preventDefault();
+                claimNFTs(5);
+              }}
+            >
+              {claimingNft ? "Processing..." : "Mint 5 NFT"}
+            </Button>
+          </div>
+        )}
+      {/* <button id="walletButton" onClick={connectWalletPressed}>
         {walletAddress.length > 0 ? (
           "Connected: " +
           String(walletAddress).substring(0, 6) +
@@ -64,7 +137,7 @@ const Minter = (props) => {
         ) : (
           <span>Connect Wallet</span>
         )}
-      </button>
+      </button> */}
     </div>
   );
 };

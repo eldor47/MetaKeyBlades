@@ -1,12 +1,16 @@
 import './Slideshow.css'
 import React from 'react';
 
-import one from './img/BladeTest1.png'
-import two from './img/BladeTest2.png'
-import three from './img/BladeTest3.png'
-import four from './img/BladeTest4.png'
+import one from './img/Slideshow/00.png'
+import two from './img/Slideshow/01.png'
+import three from './img/Slideshow/03.png'
+import four from './img/Slideshow/5.png'
+import five from './img/Slideshow/42.png'
+import six from './img/Slideshow/48.png'
+import seven from './img/Slideshow/Legendary.png'
+import eight from './img/Slideshow/Legendary2.png'
 
-const colors = [one, two, three, four];
+const colors = [one, two, three, four, five, six, seven, eight];
 const delay = 3500;
 
 function Slideshow() {

@@ -1,11 +1,15 @@
 import { useEffect, useState } from "react";
-import { connectWallet, getCurrentWalletConnected } from "./utils/interact";
+import { useParams } from "react-router-dom";
+import { connectWallet, getCurrentWalletConnected } from "../utils/interact";
 import { useDispatch, useSelector } from "react-redux";
-import { connect } from "./redux/blockchain/blockchainActions";
-import { fetchData } from "./redux/data/dataActions";
+import { connect } from "../redux/blockchain/blockchainActions";
+import { fetchData } from "../redux/data/dataActions";
 import { Button } from "react-bootstrap";
 
-const Minter = (props) => {
+import './Sword.css'
+
+
+const Sword = (props) => {
 
   //State variables
   const [walletAddress, setWallet] = useState("");
@@ -60,6 +64,38 @@ const Minter = (props) => {
     
   };
 
+  const params = useParams();
+    
+    
+    useEffect(()=> {
+        console.log(params.id)
+    }, [params.id])
+
+    function getRows() {
+        var rows = [];
+        var swords = [
+            {
+                id: 1,
+                name: "Special Blade",
+                imgLink: "https://mkb-public-files.s3.us-west-1.amazonaws.com/00.png"
+            },
+            {
+                id: 2,
+                name: "N/A",
+                imgLink: "https://mkb-public-files.s3.us-west-1.amazonaws.com/Legendary.png"
+            }
+        ]
+        for(var sword of swords){
+            rows.push(
+            <div className='sword-item' key={sword.id}>
+                <h2>{sword.name}</h2>
+                <img className="sword-img" src={sword.imgLink}/>
+            </div>
+            )
+        }
+        return rows;
+    }
+
   function addWalletListener() {
     if (window.ethereum) {
       window.ethereum.on("accountsChanged", (accounts) => {
@@ -86,7 +122,7 @@ const Minter = (props) => {
   }
 
   return (
-    <div className="Minter">
+    <div className="sword">
         {blockchain.account === "" || blockchain.smartContract === null ? (
         <div>
           <h1>Connect to the Network</h1>
@@ -103,29 +139,8 @@ const Minter = (props) => {
           ) : null}
           </div>
         ) : (
-          <div>
-            <h1 style={{ textAlign: "center" }}>
-              Name: {data.name}.
-            </h1>
-            <p style={{ textAlign: "center" }}>{feedback}</p>
-            <Button
-            disabled={claimingNft ? 1:0}
-              onClick={(e) => {
-                e.preventDefault();
-                claimNFTs(1);
-              }}
-            >
-              {claimingNft ? "Processing..." : "Mint 1 NFT"}
-            </Button>
-            <Button
-            disabled={claimingNft ? 1:0}
-              onClick={(e) => {
-                e.preventDefault();
-                claimNFTs(5);
-              }}
-            >
-              {claimingNft ? "Processing..." : "Mint 5 NFT"}
-            </Button>
+          <div className="sword-holder">
+            {getRows()}
           </div>
         )}
       {/* <button id="walletButton" onClick={connectWalletPressed}>
@@ -142,4 +157,4 @@ const Minter = (props) => {
   );
 };
 
-export default Minter;
+export default Sword;
