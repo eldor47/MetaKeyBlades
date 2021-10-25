@@ -2,11 +2,14 @@ import React from "react";
 
 import axios from 'axios';
 
-import { Button, InputGroup, FormControl, OverlayTrigger, Tooltip, Pagination, Card, Modal } from 'react-bootstrap';
+import { Button, InputGroup, FormControl, OverlayTrigger, Tooltip, Pagination, Card, Modal, ButtonGroup } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
 import Select from 'react-select';
 
 import './Sword.css'
+
 
 
 class Sword extends React.Component {
@@ -16,17 +19,130 @@ class Sword extends React.Component {
 
     this.state = {
       swords: [],
-      pageSize: 10,
+      pageSize: 50,
       pageNumber: 1,
       loading: true,
-      bladeId: -1,
+      bladeId: null,
       checked: false,
       show: false,
       selectedSword: 0,
-      options: [
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' }
+      bladeType: null,
+      blateMaterial: null,
+      hilt: null,
+      manastone: null,
+      manastoneShape: null,
+      border: null,
+      sortMethod: 'ID',
+      filterDirection: true,
+      typeOptions: [
+        { value: 'Soldier', label: 'Soldier' },
+        { value: 'Mercenary', label: 'Mercenary' },
+        { value: 'Hunter', label: 'Hunter' },
+        { value: 'DragonKnight', label: 'DragonKnight' },
+        { value: 'Zero', label: 'Zero' },
+        { value: 'DeathKnight', label: 'DeathKnight' },
+        { value: 'WorldEnder', label: 'WorldEnder' },
+        { value: 'WyrmSlayer', label: 'WyrmSlayer' },
+        { value: 'Mage', label: 'Mage' },
+        { value: 'Training', label: 'Training' },
+        { value: 'Druid', label: 'Druid' },
+        { value: 'Hellfire', label: 'Hellfire' },
+        { value: 'Ranger', label: 'Ranger' },
+        { value: 'Beholder', label: 'Beholder' },
+        { value: 'Serpent', label: 'Serpent' },
+        { value: 'Berserker', label: 'Berserker' },
+        { value: 'Sun', label: 'Sun' },
+        { value: 'Paladin', label: 'Paladin' },
+        { value: 'Warrior', label: 'Warrior' },
+        { value: 'WindCutter', label: 'WindCutter' },
+        { value: 'Scarab', label: 'Scarab' },
+        { value: 'Melodic', label: 'Melodic' },
+        { value: 'Monster', label: 'Monster' },
+        { value: 'DemonHunter', label: 'DemonHunter' },
+        { value: 'Orc', label: 'Orc' },
+        { value: 'Goblin', label: 'Goblin' }
+      ],
+      materialOptions: [
+        { value: 'Mithril', label: 'Mithril' },
+        { value: 'DwarfSteel', label: 'DwarfSteel' },
+        { value: 'ElfSteel', label: 'ElfSteel' },
+        { value: 'Gold', label: 'Gold' },
+        { value: 'WyrmFrost', label: 'WyrmFrost' },
+        { value: 'ScarletMetal', label: 'ScarletMetal' },
+        { value: 'Ethereal', label: 'Ethereal' },
+        { value: 'ColdIron', label: 'ColdIron' },
+        { value: 'SkyMetal', label: 'SkyMetal' },
+        { value: 'BloodMetal', label: 'BloodMetal' },
+        { value: 'Galaxy', label: 'Galaxy' },
+        { value: 'StarMetal', label: 'StarMetal' },
+        { value: 'DragonMetal', label: 'DragonMetal' },
+        { value: 'Obsidian', label: 'Obsidian' },
+        { value: 'GhostFire', label: 'GhostFire' },
+        { value: 'Orichalcum', label: 'Orichalcum' },
+        { value: 'Adamantite', label: 'Adamantite' },
+        { value: 'SunSteel', label: 'SunSteel' },
+        { value: 'Palladium', label: 'Palladium' },
+        { value: 'ChronoSteel', label: 'ChronoSteel' },
+        { value: 'MelodicSteel', label: 'MelodicSteel' },
+        { value: 'Prismatic', label: 'Prismatic' },
+        { value: 'CelestialStar', label: 'CelestialStar' }
+      ],
+      hiltOptions: [
+        { value: 'Soldier', label: 'Soldier' },
+        { value: 'Mercenary', label: 'Mercenary' },
+        { value: 'Hunter', label: 'Hunter' },
+        { value: 'DragonKnight', label: 'DragonKnight' },
+        { value: 'Zero', label: 'Zero' },
+        { value: 'DeathKnight', label: 'DeathKnight' },
+        { value: 'WorldEnder', label: 'WorldEnder' },
+        { value: 'WyrmSlayer', label: 'WyrmSlayer' },
+        { value: 'Mage', label: 'Mage' },
+        { value: 'Training', label: 'Training' },
+        { value: 'Druid', label: 'Druid' },
+        { value: 'Hellfire', label: 'Hellfire' },
+        { value: 'Ranger', label: 'Ranger' },
+        { value: 'Beholder', label: 'Beholder' },
+        { value: 'Serpent', label: 'Serpent' },
+        { value: 'Berserker', label: 'Berserker' },
+        { value: 'Sun', label: 'Sun' },
+        { value: 'Paladin', label: 'Paladin' },
+        { value: 'Warrior', label: 'Warrior' },
+        { value: 'WindCutter', label: 'WindCutter' },
+        { value: 'Scarab', label: 'Scarab' },
+        { value: 'Melodic', label: 'Melodic' },
+        { value: 'Monster', label: 'Monster' },
+        { value: 'DemonHunter', label: 'DemonHunter' },
+        { value: 'Orc', label: 'Orc' },
+        { value: 'Goblin', label: 'Goblin' }
+      ],
+      manastoneOptions: [
+        { value: 'Green', label: 'Green' },
+        { value: 'Blue', label: 'Blue' },
+        { value: 'Red', label: 'Red' },
+        { value: 'Orange', label: 'Orange' },
+        { value: 'Yellow', label: 'Yellow' },
+        { value: 'Pink', label: 'Pink' },
+        { value: 'Purple', label: 'Purple' },
+        { value: 'Prismatic', label: 'Prismatic' }
+      ],
+      manastoneShapeOptions: [
+        { value: 'Round', label: 'Round' },
+        { value: 'Diamond', label: 'Diamond' }
+      ],
+      borderOptions: [
+        { value: 'BlueYellow', label: 'BlueYellow' },
+        { value: 'GunMetal', label: 'GunMetal' },
+        { value: 'OrangeYellow', label: 'OrangeYellow' },
+        { value: 'BluePurple', label: 'BluePurple' },
+        { value: 'Pink', label: 'Pink' },
+        { value: 'Gold', label: 'Gold' },
+        { value: 'Purple', label: 'Purple' },
+        { value: 'Prismatic', label: 'Prismatic' },
+        { value: 'RedWhite', label: 'RedWhite' },
+        { value: 'Violet', label: 'Violet' },
+        { value: 'Green', label: 'Green' },
+        { value: 'Blue', label: 'Blue' },
+        { value: 'MixedBerry', label: 'MixedBerry' }
       ]
     };
 
@@ -35,12 +151,13 @@ class Sword extends React.Component {
   }
 
   async componentDidMount() {
-      var initialSwords = await this.getSwordData({})
-      initialSwords.sort((a, b) => {
-        return a.name - b.name;
-      });
-      this.setState({swords: initialSwords})
-      this.setState({loading: false})
+    await this.setState({loading: true})
+    var initialSwords = await this.getSwordData({})
+    initialSwords.sort((a, b) => {
+      return a.name - b.name;
+    });
+    await this.setState({swords: initialSwords})
+    await this.setState({loading: false})
   }
 
   getRows() {
@@ -62,7 +179,10 @@ class Sword extends React.Component {
         <Card.Body datakey={i}>
           <Card.Title datakey={i}>{!sword["Legendary Name"] ? ("#" + sword.name) : (sword["Legendary Name"] + " - #" + sword.name)}</Card.Title>
           <Card.Text datakey={i}>
-          {!sword["Legendary Name"] ? ("This is a Randomly Generated Blade") : 'This is a Legendary Blade'}
+          {!sword["Legendary Name"] ? ("Randomly Generated Blade") : 'Legendary Blade'}
+          </Card.Text>
+          <Card.Text datakey={i}>
+          <b>{'Rank - ' + sword.rank}</b>
           </Card.Text>
           {/* <Button variant="primary">Attack Stats</Button> */}
         </Card.Body>
@@ -86,7 +206,7 @@ class Sword extends React.Component {
   handleClick(e) {
     const selectedIndex = e.target.getAttribute('datakey');
     console.log(selectedIndex)
-    this.setState({pageNumber: selectedIndex})
+    this.setState({pageNumber: parseInt(selectedIndex)})
   }
 
   getPageNumbers(){
@@ -101,14 +221,20 @@ class Sword extends React.Component {
     }
     return rows;
   }
+
+  nextPage(){
+    this.setState({
+      pageNumber: this.state.pageNumber+1
+    })
+  }
   
   getPages() {
     return (<Pagination>
-      <Pagination.First onClick={()=>this.setState({pageNumber: 1})} />
-      <Pagination.Prev onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
+      <Pagination.First disabled={this.state.pageNumber == 1} onClick={()=>this.setState({pageNumber: 1})} />
+      <Pagination.Prev disabled={this.state.pageNumber == 1} onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
       {this.getPageNumbers()}
-      <Pagination.Next onClick={()=>this.setState({pageNumber: this.state.pageNumber+1})}/>
-      <Pagination.Last onClick={()=>this.setState({pageNumber: Math.floor(this.state.swords.length / this.state.pageSize)})}/>
+      <Pagination.Next disabled={this.state.pageNumber == Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.nextPage()}/>
+      <Pagination.Last  disabled={this.state.pageNumber == Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}/>
     </Pagination>);
   }
 
@@ -119,8 +245,27 @@ class Sword extends React.Component {
     return res.data.body.blades;
   }
 
-  handleSelect(options) {
-    console.log(options)
+  async handleSelect(options, names) {
+    await this.setState({loading: true})
+    if(names == "Blade Type"){
+      await this.setState({bladeType: options ? options.value : null})
+    }
+    if(names == "Blade Material"){
+      await this.setState({bladeMaterial: options ? options.value : null})
+    }
+    if(names == "Hilt"){
+      await this.setState({hilt: options ? options.value : null})
+    }
+    if(names == "Manastone"){
+      await this.setState({manastone: options ? options.value : null})
+    }
+    if(names == "Manastone Shape"){
+      await this.setState({manastoneShape: options ? options.value : null})
+    }
+    if(names == "Border"){
+      await this.setState({border: options ? options.value : null})
+    }
+    this.handleCheck()
   }
 
   makeDropdown(options, name) {
@@ -128,10 +273,10 @@ class Sword extends React.Component {
       <div className="filter multi">
         <p><b>{name}</b></p>
         <Select
-          isMulti
           name="filter"
-          onChange={this.handleSelect}
-          options={this.state.options}
+          onChange={(e) => this.handleSelect(e, name)}
+          options={options}
+          isClearable
           className="basic-multi-select"
           classNamePrefix="select"
         />
@@ -150,11 +295,34 @@ class Sword extends React.Component {
     clearTimeout(this.timer);
     this.timer = setTimeout(() => {
       this.getData();
-    }, 500);
+    }, 300);
   }
 
   getData = async () => {
-    var swords = await this.getSwordData({bladeId: this.state.bladeId})
+    var filterObj = {};
+    if(this.state.bladeId){
+      filterObj.bladeId = this.state.bladeId;
+    }
+    if(this.state.bladeType){
+      filterObj.bladeType = this.state.bladeType;
+    }
+    if(this.state.bladeMaterial){
+      filterObj.bladeMaterial = this.state.bladeMaterial;
+    }
+    if(this.state.hilt){
+      filterObj.hilt = this.state.hilt;
+    }
+    if(this.state.manastone){
+      filterObj.manastone = this.state.manastone;
+    }
+    if(this.state.manastoneShape){
+      filterObj.manastoneShape = this.state.manastoneShape;
+    }
+    if(this.state.border){
+      filterObj.Background = this.state.border;
+    }
+    console.log(filterObj)
+    var swords = await this.getSwordData(filterObj)
     swords.sort((a, b) => {
       return a.name - b.name;
     });
@@ -169,7 +337,7 @@ class Sword extends React.Component {
     await this.setState({pageNumber: 1})
     if(filterEvent == "bladeId"){
       if(!e.target.value){
-        await this.setState({bladeId: -1})
+        await this.setState({bladeId: null})
       }else {
         await this.setState({bladeId: parseInt(e.target.value)})
       }
@@ -184,7 +352,17 @@ class Sword extends React.Component {
     var swords = this.state.swords
     if(swords[this.state.selectedSword]){
       var sword = swords[this.state.selectedSword]
-      return !sword["Legendary Name"] ? ("#" + sword.name) : (sword["Legendary Name"] + " - #" + sword.name)
+      var title = !sword["Legendary Name"] ? ("MetaKey Blades #" + sword.name) : (sword["Legendary Name"] + " - #" + sword.name)
+      return title
+    }
+    return ''
+  }
+
+  getRank() {
+    var swords = this.state.swords
+    if(swords[this.state.selectedSword]){
+      var sword = swords[this.state.selectedSword]
+      return sword.rank
     }
     return ''
   }
@@ -195,26 +373,84 @@ class Sword extends React.Component {
       var sword = swords[this.state.selectedSword]
       console.log(sword)
       return (<div className='sword-details'>
-        <p><b>Blade Material:</b> {sword['Blade Material']}</p>
-        <p><b>Blade Type:</b> {sword['Blade Type']}</p>
-        <p><b>Hilt:</b> {sword['Hilt']}</p>
-        <p><b>Manastone:</b> {sword['Manastone']}</p>
-        <p><b>Manastone Shape:</b> {sword['Manastone Shape']}</p>
-        <p><b>Border:</b> {sword['Background']}</p>
-        {
-          sword["Legendary Name"] ? (
-            <p><b>Legendary Name:</b> {sword['Legendary Name']}</p>
-          ) : (
-            <p><b>Legendary Name:</b> N/A</p>
-          )
-        }
+        <img className="modal-sword-img" src={sword.image} />
+        <div className='rankings'>
+          <p><b>Trait Count:</b> {sword['Trait Count']}
+          <b className='green'>{'+' + sword.rarity['Trait Count'].toFixed(2)}</b></p>
+          <p><b>Blade Material:</b> {sword['Blade Material']}
+          <b className='green'>{'+' + sword.rarity['Blade Material'].toFixed(2)}</b></p>
+          <p><b>Blade Type:</b> {sword['Blade Type']} 
+          <b className='green'>{'+' + sword.rarity['Blade Type'].toFixed(2)}</b></p>
+          <p><b>Hilt:</b> {sword['Hilt']}
+          <b className='green'>{'+' + sword.rarity['Hilt'].toFixed(2)}</b></p>
+          <p><b>Manastone:</b> {sword['Manastone']}
+          <b className='green'>{'+' + sword.rarity['Manastone'].toFixed(2)}</b></p>
+          <p><b>Manastone Shape:</b> {sword['Manastone Shape']}
+          <b className='green'>{'+' + sword.rarity['Manastone Shape'].toFixed(2)}</b></p>
+          <p><b>Border:</b> {sword['Background']} 
+          <b className='green'>{'+' + sword.rarity['Background'].toFixed(2)}</b></p>
+          {
+            sword["Legendary Name"] ? (
+              <p><b>Legendary Name:</b> {sword['Legendary Name']}
+              <b className='green'>{'+' + sword.rarity['Legendary Name'].toFixed(2)}</b></p>
+            ) : (
+              <></>
+            )
+          }
+          <p><b>Total Score:</b> <b class='green'>{sword['totalScore'].toFixed(2)}</b>
+          </p>
+        </div>
       </div>)
     }
     return ''
   }
 
+  sortBy(type){
+    if(type == 'ID'){
+      var newSwords = this.state.swords.sort((a, b) => {
+        return a.name - b.name;
+      });
+      if(this.state.filterDirection == false){
+        newSwords.reverse();
+      }
+      this.setState({swords: newSwords})
+      this.setState({sortMethod: 'ID'})
+    }
+    if(type == 'rank'){
+      var newSwords = this.state.swords.sort((a, b) => {
+        return a.rank - b.rank;
+      });
+      if(this.state.filterDirection == false){
+        newSwords.reverse();
+      }
+      this.setState({swords: newSwords})
+      this.setState({sortMethod: 'rank'})
+    }
+  }
+
+  reverseSort(){
+    if(this.state.sortMethod == 'ID'){
+      var newSwords = this.state.swords.sort((a, b) => {
+        return a.name - b.name;
+      })
+      if(!this.state.filterDirection == false){
+        newSwords.reverse();
+      }
+      this.setState({swords: newSwords})
+    }
+    if(this.state.sortMethod == 'rank'){
+      var newSwords = this.state.swords.sort((a, b) => {
+        return a.rank - b.rank;
+      })
+      if(!this.state.filterDirection == false){
+        newSwords.reverse();
+      }
+      this.setState({swords: newSwords})
+    }
+    this.setState({filterDirection: !this.state.filterDirection})
+  }
+
   render() {
-    var swords = this.state.swords;
     return (
     <div className="sword">
         <div className="sword">
@@ -242,13 +478,27 @@ class Sword extends React.Component {
                 </InputGroup>
               </OverlayTrigger>
             </div>
-            {this.makeDropdown(this.state.options, 'Blade Type')}
-            {this.makeDropdown(this.state.options, 'Blade Material')}
-            {this.makeDropdown(this.state.options, 'Hilt')}
-            {this.makeDropdown(this.state.options, 'Manastone')}
-            {this.makeDropdown(this.state.options, 'Manastone Shape')}
-            {this.makeDropdown(this.state.options, 'Border')}
-            <Button className='search-button'>Search</Button>
+            {this.makeDropdown(this.state.typeOptions, 'Blade Type')}
+            {this.makeDropdown(this.state.materialOptions, 'Blade Material')}
+            {this.makeDropdown(this.state.hiltOptions, 'Hilt')}
+            {this.makeDropdown(this.state.manastoneOptions, 'Manastone')}
+            {this.makeDropdown(this.state.manastoneShapeOptions, 'Manastone Shape')}
+            {this.makeDropdown(this.state.borderOptions, 'Border')}
+            <div className='filter multi'>
+              <p><b>Sort By</b></p>
+              <ButtonGroup className="mb-2">
+                <Button disabled={this.state.sortMethod == 'rank'} onClick={() => this.sortBy('rank')}>Rank</Button>
+                <Button disabled={this.state.sortMethod == 'ID'} onClick={() => this.sortBy('ID')}>ID</Button>
+                <Button onClick={() => this.reverseSort()}>
+                  <FontAwesomeIcon
+                  icon={this.state.filterDirection == true ? faArrowUp : faArrowDown}
+                  size="1x"/>
+                </Button>
+              </ButtonGroup>
+            </div>
+          </div>
+          <div className='sword-holder' hidden={this.state.swords.length !== 0 && !this.state.loading}>
+            <p>No results</p>
           </div>
           { this.state.loading ? (
           <div className='sword-holder'>
@@ -263,9 +513,9 @@ class Sword extends React.Component {
             </div>
           )}
 
-        <Modal show={this.state.show} onHide={() => this.handleClose()}>
+        <Modal size='lg' show={this.state.show} onHide={() => this.handleClose()}>
           <Modal.Header closeButton>
-            <Modal.Title>{this.getSwordTitle()}</Modal.Title>
+            <Modal.Title>{this.getSwordTitle()} <b><p class='right-modal'>{'Rank ' + this.getRank()}</p></b></Modal.Title>
           </Modal.Header>
           <Modal.Body>{this.getSwordDetails()}</Modal.Body>
           <Modal.Footer>

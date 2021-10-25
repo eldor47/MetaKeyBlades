@@ -15,10 +15,44 @@
     justify-content: center;
 }
 
+
+.card {
+    min-height: 450px;
+}
+
+.green {
+    color: green;
+    padding-left: 10px;
+}
+
 .sword-img {
     height: 400px;
     width: 266px;
     background-color: rgb(88, 88, 88);
+
+}
+
+.modal-sword-img {
+    min-width: 300px;
+    max-width: 300px;
+    background-color: rgb(88, 88, 88);
+    border-radius: 20px;
+    margin-bottom: 20px
+}
+
+.rankings {
+    padding-left: 30px;
+}
+.sword-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.sword-details > p {
+    width: 300px;
+    text-align: center;
 }
 
 .sword-item {
