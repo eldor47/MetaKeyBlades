@@ -1,17 +1,128 @@
 .sword-holder {
     width: 100%;
-    height: 800px;
+    min-height: 80vh;
     background-color: rgba(158, 250, 230);
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     column-gap: 30px;
+    padding-top: 30px;
+}
+
+.page-holder {
+    width: 100%; /* Can be in percentage also. */
+    display: flex;
+    justify-content: center;
 }
 
 .sword-img {
-    height: 300px;
+    height: 400px;
+    width: 266px;
+    background-color: rgb(88, 88, 88);
 }
 
 .sword-item {
-    width: 200px;
+    border: 2px solid black;
+    border-radius: 10px;
+    transition: 0.3s;
+    margin-bottom: 20px;
+    max-height: 550px;
 }
+
+.sword-item {
+    -webkit-animation: fadein 1s; /* Safari, Chrome and Opera > 12.1 */
+       -moz-animation: fadein 1s; /* Firefox < 16 */
+        -ms-animation: fadein 1s; /* Internet Explorer */
+         -o-animation: fadein 1s; /* Opera < 12.1 */
+            animation: fadein 1s;
+}
+
+@keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Firefox < 16 */
+@-moz-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+/* Safari, Chrome and Opera > 12.1 */
+@-webkit-keyframes fadein {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+.sword-item:hover {
+    margin-top: -10px;
+    margin-bottom: 30px;
+  }
+
+.sword {
+    background-color: rgba(158, 250, 230);
+    width: 100%;
+    min-height: 700px;
+}
+
+.sword-search {
+    background-color: rgba(158, 250, 230);
+    column-gap: 30px;
+    padding-top: 30px;
+    margin: auto;
+    max-width: 700px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.filter {
+    padding-bottom:20px;
+}
+
+.mb-3 {
+    width: 300px!important;
+    min-width: 300px!important;
+}
+
+.basic-multi-select {
+    width: 300px;
+}
+
+.search-button {
+    height: 40px;
+    margin-top: 15px;
+    width: 300px;
+}
+
+
+.id {
+    height: 40px;
+}
+
+
+.lds-dual-ring {
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+  }
+  .lds-dual-ring:after {
+    content: " ";
+    display: block;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border-radius: 50%;
+    border: 6px solid rgb(88, 88, 88);
+    border-color: rgb(88, 88, 88) transparent rgb(88, 88, 88) transparent;
+    animation: lds-dual-ring 1.2s linear infinite;
+  }
+  @keyframes lds-dual-ring {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }

@@ -71,6 +71,8 @@ export default function App() {
           </Route>
           <Route path='/sword/:id' component={Sword}>
           </Route>
+          <Route path='/sword' component={Sword}>
+          </Route>
           <Route path="/">
             <Home />
           </Route>
