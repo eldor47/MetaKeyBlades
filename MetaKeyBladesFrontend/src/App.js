@@ -1,5 +1,5 @@
 import './App.css';
-import Minter from './Minter'
+import Mint from './mint/Mint'
 import Sword from './sword/Sword';
 import {
   BrowserRouter as Router,
@@ -7,7 +7,7 @@ import {
   Route,
   Link
 } from "react-router-dom";
-import {NavDropdown, MenuItem, Navbar, NavItem, Nav} from 'react-bootstrap';
+import {NavDropdown, Navbar, Nav} from 'react-bootstrap';
 import Slideshow from './Slideshow';
 import logo from './img/LogoTransparent.png'
 import smallLogo from './img/CrossSwordSmallSvg.svg'
@@ -67,7 +67,7 @@ export default function App() {
             <About />
           </Route>
           <Route path="/mint">
-            <Minter />
+            <Mint />
           </Route>
           <Route path='/sword/:id' component={Sword}>
           </Route>
@@ -197,7 +197,7 @@ function Home() {
           <div className='footerText'>
             <h1>Join the Community</h1>
             <p className="listItem">Come talk to us in Discord if you have any questions or concerns.</p>
-            <button class='footer-button'><a className="footerDisc" href="https://discord.gg/87kdNqrASP">Join Our Discord</a></button>
+            <button className='footer-button'><a className="footerDisc" href="https://discord.gg/87kdNqrASP">Join Our Discord</a></button>
           </div>
           <div className='socialContainer'>
             <p><b>@metakeyblades</b> are designed with care, and ready for adventure ⚔️ 😊</p>

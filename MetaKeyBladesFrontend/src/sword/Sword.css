@@ -23,6 +23,7 @@
 .green {
     color: green;
     padding-left: 10px;
+    text-align: right;
 }
 
 .sword-img {
@@ -91,6 +92,7 @@
 .sword-item:hover {
     margin-top: -10px;
     margin-bottom: 30px;
+    cursor: pointer;
   }
 
 .sword {
@@ -113,6 +115,10 @@
 
 .filter {
     padding-bottom:20px;
+}
+
+.sort {
+    width: 300px;
 }
 
 .mb-3 {

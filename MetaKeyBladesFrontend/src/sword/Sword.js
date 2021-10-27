@@ -166,7 +166,6 @@ class Sword extends React.Component {
     var pageNumber = this.state.pageNumber
     
     var rows = []
-    var count = 0;
     for (var i = (pageNumber-1)*pageSize; i < pageSize * pageNumber && swords.length > 0 && i < swords.length; i++) {
       var sword = swords[i]
       rows.push(
@@ -188,7 +187,6 @@ class Sword extends React.Component {
         </Card.Body>
         </Card>
       )
-      count++;
     }
     return rows;
   }
@@ -216,7 +214,7 @@ class Sword extends React.Component {
     var currentPage = this.state.pageNumber;
     for(var i = 1; i < (swords.length / pageSize)+1; i++){
       rows.push(
-        <Pagination.Item key={i} datakey={i} onClick={(e) => this.handleClick(e)} active={i==currentPage}>{i}</Pagination.Item>
+        <Pagination.Item key={i} datakey={i} onClick={(e) => this.handleClick(e)} active={i===currentPage}>{i}</Pagination.Item>
       )
     }
     return rows;
@@ -230,16 +228,16 @@ class Sword extends React.Component {
   
   getPages() {
     return (<Pagination>
-      <Pagination.First disabled={this.state.pageNumber == 1} onClick={()=>this.setState({pageNumber: 1})} />
-      <Pagination.Prev disabled={this.state.pageNumber == 1} onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
+      <Pagination.First disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: 1})} />
+      <Pagination.Prev disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
       {this.getPageNumbers()}
-      <Pagination.Next disabled={this.state.pageNumber == Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.nextPage()}/>
-      <Pagination.Last  disabled={this.state.pageNumber == Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}/>
+      <Pagination.Next disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.nextPage()}/>
+      <Pagination.Last  disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}/>
     </Pagination>);
   }
 
   async getSwordData(options) {
-    var headers = {headers: {'x-api-key': 'kVEsMM7Kwy8Ow1o7ES4W71MoLAeMcWyK3LizKOca'}}
+    var headers = {headers: {'x-api-key': process.env.REACT_APP_API_KEY}}
     var res = await axios.post('https://xefu37ittb.execute-api.us-west-1.amazonaws.com/test/getblades', options, headers);
     //swords = res.data.body.blades
     return res.data.body.blades;
@@ -247,22 +245,22 @@ class Sword extends React.Component {
 
   async handleSelect(options, names) {
     await this.setState({loading: true})
-    if(names == "Blade Type"){
+    if(names === "Blade Type"){
       await this.setState({bladeType: options ? options.value : null})
     }
-    if(names == "Blade Material"){
+    if(names === "Blade Material"){
       await this.setState({bladeMaterial: options ? options.value : null})
     }
-    if(names == "Hilt"){
+    if(names === "Hilt"){
       await this.setState({hilt: options ? options.value : null})
     }
-    if(names == "Manastone"){
+    if(names === "Manastone"){
       await this.setState({manastone: options ? options.value : null})
     }
-    if(names == "Manastone Shape"){
+    if(names === "Manastone Shape"){
       await this.setState({manastoneShape: options ? options.value : null})
     }
-    if(names == "Border"){
+    if(names === "Border"){
       await this.setState({border: options ? options.value : null})
     }
     this.handleCheck()
@@ -330,12 +328,14 @@ class Sword extends React.Component {
       swords 
     })
     await this.setState({loading: false})
+
+    this.sortBy(this.state.sortMethod);
   }
 
   async filterEvent(e, filterEvent){
     await this.setState({loading: true})
     await this.setState({pageNumber: 1})
-    if(filterEvent == "bladeId"){
+    if(filterEvent === "bladeId"){
       if(!e.target.value){
         await this.setState({bladeId: null})
       }else {
@@ -406,21 +406,21 @@ class Sword extends React.Component {
   }
 
   sortBy(type){
-    if(type == 'ID'){
+    if(type === 'ID'){
       var newSwords = this.state.swords.sort((a, b) => {
         return a.name - b.name;
       });
-      if(this.state.filterDirection == false){
+      if(this.state.filterDirection === false){
         newSwords.reverse();
       }
       this.setState({swords: newSwords})
       this.setState({sortMethod: 'ID'})
     }
-    if(type == 'rank'){
+    if(type === 'rank'){
       var newSwords = this.state.swords.sort((a, b) => {
         return a.rank - b.rank;
       });
-      if(this.state.filterDirection == false){
+      if(this.state.filterDirection === false){
         newSwords.reverse();
       }
       this.setState({swords: newSwords})
@@ -429,20 +429,20 @@ class Sword extends React.Component {
   }
 
   reverseSort(){
-    if(this.state.sortMethod == 'ID'){
+    if(this.state.sortMethod === 'ID'){
       var newSwords = this.state.swords.sort((a, b) => {
         return a.name - b.name;
       })
-      if(!this.state.filterDirection == false){
+      if(!this.state.filterDirection === false){
         newSwords.reverse();
       }
       this.setState({swords: newSwords})
     }
-    if(this.state.sortMethod == 'rank'){
+    if(this.state.sortMethod === 'rank'){
       var newSwords = this.state.swords.sort((a, b) => {
         return a.rank - b.rank;
       })
-      if(!this.state.filterDirection == false){
+      if(!this.state.filterDirection === false){
         newSwords.reverse();
       }
       this.setState({swords: newSwords})
@@ -484,21 +484,45 @@ class Sword extends React.Component {
             {this.makeDropdown(this.state.manastoneOptions, 'Manastone')}
             {this.makeDropdown(this.state.manastoneShapeOptions, 'Manastone Shape')}
             {this.makeDropdown(this.state.borderOptions, 'Border')}
-            <div className='filter multi'>
+            <div className='filter multi sort'>
               <p><b>Sort By</b></p>
               <ButtonGroup className="mb-2">
-                <Button disabled={this.state.sortMethod == 'rank'} onClick={() => this.sortBy('rank')}>Rank</Button>
-                <Button disabled={this.state.sortMethod == 'ID'} onClick={() => this.sortBy('ID')}>ID</Button>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={
+                    <Tooltip id={`tooltip-top`} hidden={this.state.sortMethod === 'rank'}>
+                      Sort results by <strong>rank</strong>
+                    </Tooltip>
+                  }
+                >
+                 <Button disabled={this.state.sortMethod === 'rank'} onClick={() => this.sortBy('rank')}>Rank</Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={
+                    <Tooltip id={`tooltip-top`} hidden={this.state.sortMethod === 'ID'}>
+                      Sort results by <strong>ID</strong>
+                    </Tooltip>
+                  }
+                >
+                <Button disabled={this.state.sortMethod === 'ID'} onClick={() => this.sortBy('ID')}>ID</Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={
+                    <Tooltip id={`tooltip-top`}>
+                      Reverse sort order
+                    </Tooltip>
+                  }
+                >
                 <Button onClick={() => this.reverseSort()}>
                   <FontAwesomeIcon
-                  icon={this.state.filterDirection == true ? faArrowUp : faArrowDown}
+                  icon={this.state.filterDirection === true ? faArrowUp : faArrowDown}
                   size="1x"/>
                 </Button>
+                </OverlayTrigger>
               </ButtonGroup>
             </div>
-          </div>
-          <div className='sword-holder' hidden={this.state.swords.length !== 0 && !this.state.loading}>
-            <p>No results</p>
           </div>
           { this.state.loading ? (
           <div className='sword-holder'>
