@@ -1,9 +1,13 @@
 
 import React from "react";
 import Web3 from "web3";
-import {Button} from 'react-bootstrap'
+import { Button, ProgressBar } from 'react-bootstrap'
 import { connectWallet, getCurrentWalletConnected } from "../utils/interact";
 import SmartContract from "../contracts/SmartContract.json";
+
+import swordGIF from '../img/slideshow.gif'
+
+import './Mint.css'
 
 
 
@@ -69,19 +73,19 @@ class Mint extends React.Component {
         var smartContract = this.state.smartContract;
         var wallet = this.state.wallet
         var web3 = this.state.web3
-        try{
+        try {
             smartContract.methods.mint(wallet, _amount).send({
                 from: wallet,
                 value: web3.utils.toWei((0.06 * _amount).toString(), "ether")
             }).then((receipt) => {
-                this.setFeedback('Success')
+                this.setFeedback('Token Successfully Minted!')
                 this.setClaimingNft(false)
             }).catch((err) => {
                 console.log(err)
                 this.setFeedback("Transaction failed")
                 this.setClaimingNft(false)
             })
-        } catch (err){
+        } catch (err) {
             console.log(err);
             this.setFeedback("There was an error or you are on the wrong network.")
             this.setClaimingNft(false)
@@ -96,14 +100,14 @@ class Mint extends React.Component {
         console.log(this.state.smartContract)
 
         await this.addWalletListener();
-        if(this.state.wallet !== ''){
+        if (this.state.wallet !== '') {
             await this.setState({ web3: new Web3(window.ethereum) });
             await this.connect()
         }
     }
 
-    connectFailed(errorMsg){
-        this.setState({errorMsg})
+    connectFailed(errorMsg) {
+        this.setState({ errorMsg })
     }
 
     setWallet(wallet) {
@@ -134,7 +138,7 @@ class Mint extends React.Component {
         const walletResponse = await connectWallet();
         await this.setStatus(walletResponse.status);
         await this.setWallet(walletResponse.address);
-        if(this.state.wallet !== ''){
+        if (this.state.wallet !== '') {
             await this.setState({ web3: new Web3(window.ethereum) });
             await this.connect()
         }
@@ -176,42 +180,57 @@ class Mint extends React.Component {
         var claimingNft = this.state.claimingNft
         return (
             <div className="mint">
-                <button id="walletButton" onClick={this.connectWalletPressed}>
+                <div className='info'>
+                    <h1>Mint a MetaKey Blades Sword</h1>
+                    <p>Mint price is 0.06 ETH for each ERC721 Token</p>
+                </div>
+                <div class='total'>
+                    <h2>500/2500 minted</h2>
+                </div>
+                <div class='progress'>
+                    <ProgressBar now={60} label={`${60}%`} />
+                </div>
+                <div className='minter'>
+                    <Button id="walletButton" onClick={this.connectWalletPressed}>
+                        {wallet.length > 0 ? (
+                            "Wallet: " + 
+                            String(wallet).substring(0, 6) +
+                            "..." +
+                            String(wallet).substring(38)
+                        ) : (
+                            <span>Connect Wallet</span>
+                        )}
+                    </Button>
                     {wallet.length > 0 ? (
-                        "Connected: " +
-                        String(wallet).substring(0, 6) +
-                        "..." +
-                        String(wallet).substring(38)
-                    ) : (
-                        <span>Connect Wallet</span>
-                    )}
-                </button>
-                {wallet.length > 0 ? (
-                    <div>
-                        <h1 style={{ textAlign: "center" }}>
-                            MetaKey Blades 
-                        </h1>
-                        <p style={{ textAlign: "center" }}>{feedback}</p>
-                        <Button
-                            disabled={this.state.claimingNft ? 1 : 0}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                this.claimNFTs(1);
-                            }}
-                        >
-                            {claimingNft ? "Processing..." : "Mint 1 NFT"}
-                        </Button>
-                        <Button
-                            disabled={claimingNft ? 1 : 0}
-                            onClick={(e) => {
-                                e.preventDefault();
-                                this.claimNFTs(5);
-                            }}
-                        >
-                            {claimingNft ? "Processing..." : "Mint 5 NFT"}
-                        </Button>
+                        <div class='btn-holder'>
+                            <h2 style={{ textAlign: "center" }}>
+                                Mint MKB Token
+                            </h2>
+                            <p style={{ textAlign: "center" }}>{feedback}</p>
+                            <Button
+                                disabled={this.state.claimingNft ? 1 : 0}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.claimNFTs(1);
+                                }}
+                            >
+                                {claimingNft ? "Processing..." : "Mint 1"}
+                            </Button>
+                            <Button
+                                disabled={this.state.claimingNft ? 1 : 0}
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.claimNFTs(2);
+                                }}
+                            >
+                                {claimingNft ? "Processing..." : "Mint 2"}
+                            </Button>
+                        </div>
+                    ) : (<></>)}
+                    <div class='img-holder'>
+                        <img class='slideshowGIF' src={swordGIF}></img>
                     </div>
-                ) : (<></>)}
+                </div>
             </div>
         );
     }
