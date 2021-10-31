@@ -134,6 +134,21 @@ class Mint extends React.Component {
         })
     }
 
+    walletOfOwner(){
+        var smartContract = this.state.smartContract
+        var wallet = this.state.wallet
+        var web3 = this.state.web3
+        try {
+            smartContract.methods.walletOfOwner(wallet).call().then((data) => {
+                console.log(data)
+            }).catch((err) => {
+                console.log(err)
+            })
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     connectWalletPressed = async () => { //TODO: implement
         const walletResponse = await connectWallet();
         await this.setStatus(walletResponse.status);
@@ -181,7 +196,7 @@ class Mint extends React.Component {
         return (
             <div className="mint">
                 <div className='info'>
-                    <h1>Mint a MetaKey Blades Sword</h1>
+                    <h1>Mint a MetaKey Blade</h1>
                     <p>Mint price is 0.06 ETH for each ERC721 Token</p>
                 </div>
                 <div class='total'>
@@ -224,6 +239,14 @@ class Mint extends React.Component {
                                 }}
                             >
                                 {claimingNft ? "Processing..." : "Mint 2"}
+                            </Button>
+                            <Button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    this.walletOfOwner();
+                                }}
+                            >
+                                {claimingNft ? "Processing..." : "My Swords"}
                             </Button>
                         </div>
                     ) : (<></>)}

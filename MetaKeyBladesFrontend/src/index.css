@@ -166,7 +166,9 @@ button:hover {
 .aboutUs {
   display: flex;
   justify-content: center;
-  column-gap: 30px;
+  align-items: center;
+  column-gap: 50px;
+  row-gap: 40px;
   flex-wrap: wrap;
   max-width: 100%;
   background-color: rgba(158, 250, 230);

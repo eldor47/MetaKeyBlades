@@ -1,0 +1,54 @@
+.time-holder {
+    width: 75vw;
+    max-width: 900px;
+    min-width: 350px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: black;
+}
+
+.time-top {
+    border-right: 2px solid rgb(88, 88, 88);
+    border-bottom: 2px solid rgb(88, 88, 88);
+    padding: 10px;
+    background-color: black;
+    color: rgb(223, 248, 242);
+    width: 100px;
+    font-size: 22px;
+    font-weight: 400;
+    font-family: 'Roboto', sans-serif;
+    border-radius: 8px;
+    margin: 3px;
+}
+
+.mintText {
+    transition: 0.5s;
+}
+
+
+
+.disabled:hover{
+    opacity: 100;
+}
+
+.time-bottom {
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.mintButton {
+    margin-top: 20px;
+    background-color: black;
+    color: rgb(223, 248, 242);
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.disabled {
+    margin-top: 20px;
+    background-color: rgb(49, 49, 49);
+    color: rgb(223, 248, 242);
+    font-size: 18px;
+    font-weight: 300;
+}

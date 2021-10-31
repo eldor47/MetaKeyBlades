@@ -6,6 +6,7 @@ import { Button, InputGroup, FormControl, OverlayTrigger, Tooltip, Pagination, C
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
 
+
 import Select from 'react-select';
 
 import './Sword.css'
@@ -34,6 +35,7 @@ class Sword extends React.Component {
       border: null,
       sortMethod: 'ID',
       filterDirection: true,
+      id: null,
       typeOptions: [
         { value: 'Soldier', label: 'Soldier' },
         { value: 'Mercenary', label: 'Mercenary' },
@@ -151,13 +153,18 @@ class Sword extends React.Component {
   }
 
   async componentDidMount() {
-    await this.setState({loading: true})
-    var initialSwords = await this.getSwordData({})
-    initialSwords.sort((a, b) => {
-      return a.name - b.name;
-    });
-    await this.setState({swords: initialSwords})
-    await this.setState({loading: false})
+    if(this.props.match.params.id){
+      var id = parseInt(this.props.match.params.id)
+      this.setState({bladeId: id});
+    } else {
+      await this.setState({loading: true})
+      var initialSwords = await this.getSwordData({})
+      initialSwords.sort((a, b) => {
+        return a.name - b.name;
+      });
+      await this.setState({swords: initialSwords})
+      await this.setState({loading: false})
+    }
   }
 
   getRows() {
@@ -472,6 +479,7 @@ class Sword extends React.Component {
                     aria-label="Blade ID"
                     aria-describedby="basic-addon1"
                     onChange={(e) => this.filterEvent(e, "bladeId")}
+                    defaultValue={this.state.bladeId}
                     type="number"
                     min="0"
                   />
@@ -485,7 +493,7 @@ class Sword extends React.Component {
             {this.makeDropdown(this.state.manastoneShapeOptions, 'Manastone Shape')}
             {this.makeDropdown(this.state.borderOptions, 'Border')}
             <div className='filter multi sort'>
-              <p><b>Sort By</b></p>
+              <p><b>Sort Blades</b></p>
               <ButtonGroup className="mb-2">
                 <OverlayTrigger
                   placement='top'
@@ -505,7 +513,9 @@ class Sword extends React.Component {
                     </Tooltip>
                   }
                 >
-                <Button disabled={this.state.sortMethod === 'ID'} onClick={() => this.sortBy('ID')}>ID</Button>
+                <Button disabled={this.state.sortMethod === 'ID'}
+                onClick={() => this.sortBy('ID')}
+                >ID</Button>
                 </OverlayTrigger>
                 <OverlayTrigger
                   placement='top'
@@ -515,10 +525,22 @@ class Sword extends React.Component {
                     </Tooltip>
                   }
                 >
-                <Button onClick={() => this.reverseSort()}>
+                <Button onClick={() => this.reverseSort()} className="sortDirection">
                   <FontAwesomeIcon
                   icon={this.state.filterDirection === true ? faArrowUp : faArrowDown}
                   size="1x"/>
+                </Button>
+                </OverlayTrigger>
+                <OverlayTrigger
+                  placement='top'
+                  overlay={
+                    <Tooltip id={`tooltip-top`}>
+                      View your swords in your wallet
+                    </Tooltip>
+                  }
+                >
+                <Button className='myBlades' onClick={() => {}}>
+                ⚔️ My Blades
                 </Button>
                 </OverlayTrigger>
               </ButtonGroup>

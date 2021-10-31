@@ -20,6 +20,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
 
+import Timer from './timer/Timer'
+
 
 export default function App() {
   return (
@@ -45,7 +47,7 @@ export default function App() {
                       <Nav.Link href="/#roadmap">Roadmap</Nav.Link>
                       <Nav.Link href="/#team">Team</Nav.Link>
                       <NavDropdown title="Socials" id="collasible-nav-dropdown">
-                        <NavDropdown.Item href="https://discord.gg/87kdNqrASP">Discord</NavDropdown.Item>
+                        <NavDropdown.Item href="https://discord.gg/metakeyblades">Discord</NavDropdown.Item>
                         <NavDropdown.Item href="https://twitter.com/metakeyblades">
                           Twitter
                         </NavDropdown.Item>
@@ -69,10 +71,10 @@ export default function App() {
           <Route path="/mint">
             <Mint />
           </Route>
-          <Route path='/sword/:id' component={Sword}>
+          {/* <Route path='/sword/:id' component={Sword}>
           </Route>
           <Route path='/sword' component={Sword}>
-          </Route>
+          </Route> */}
           <Route path="/">
             <Home />
           </Route>
@@ -94,8 +96,9 @@ function Home() {
           All weapons contain a celestial manastone fragment that is charged by the power of the gods. 
           When your weapon is bonded to you through the blockchain, you are able to pass through the celestial gates and onto adventure.
           </p>
-          <button><a className="joinDisc" href="https://discord.gg/87kdNqrASP">Join Our Discord</a></button>
+          <button><a className="joinDisc" href="https://discord.gg/metakeyblades">Join Our Discord</a></button>
         </div>
+        <Timer></Timer>
       </div>
       <div className='overview' id='overview'>
           <div className='overviewText'>
@@ -197,11 +200,11 @@ function Home() {
           <div className='footerText'>
             <h1>Join the Community</h1>
             <p className="listItem">Come talk to us in Discord if you have any questions or concerns.</p>
-            <button className='footer-button'><a className="footerDisc" href="https://discord.gg/87kdNqrASP">Join Our Discord</a></button>
+            <button className='footer-button'><a className="footerDisc" href="https://discord.gg/metakeyblades">Join Our Discord</a></button>
           </div>
           <div className='socialContainer'>
             <p><b>@metakeyblades</b> are designed with care, and ready for adventure ⚔️ 😊</p>
-            <a className='social' href="https://discord.gg/87kdNqrASP"><FontAwesomeIcon icon={faDiscord} size="2x"/></a>
+            <a className='social' href="https://discord.gg/metakeyblades"><FontAwesomeIcon icon={faDiscord} size="2x"/></a>
             <a className='social' href="https://twitter.com/metakeyblades"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
           </div>
       </div>

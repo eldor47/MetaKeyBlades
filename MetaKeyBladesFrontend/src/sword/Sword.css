@@ -119,6 +119,21 @@
 
 .sort {
     width: 300px;
+    padding-bottom: 0px;
+}
+
+.btn-group {
+    margin-top: -24px;
+}
+
+.sortDirection {
+    border-top-right-radius: 5px!important;
+    border-bottom-right-radius: 5px!important;
+}
+
+.myBlades {
+    border-radius: 5px!important;
+    margin-left: 30px!important;
 }
 
 .mb-3 {
