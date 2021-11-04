@@ -175,6 +175,8 @@ class Sword extends React.Component {
     var rows = []
     for (var i = (pageNumber-1)*pageSize; i < pageSize * pageNumber && swords.length > 0 && i < swords.length; i++) {
       var sword = swords[i]
+      var name = !sword["Legendary Name"] ? ("#" + sword.name) : (sword["Legendary Name"] + " - #" + sword.name)
+      name = !sword["Godly Name"] ? name : (sword["Godly Name"] + " - #" + sword.name)
       rows.push(
         // <div className='sword-item' key={sword.name}>
         //   <img className="sword-img" src={sword.image} />
@@ -183,11 +185,10 @@ class Sword extends React.Component {
         <Card onClick={(e)=>this.handleCardClick(e)} key={sword.name} datakey={i} className='sword-item' style={{ width: '18rem' }}>
         <Card.Img datakey={i} variant="top" src={sword.image} />
         <Card.Body datakey={i}>
-          <Card.Title datakey={i}>{!sword["Legendary Name"] ? ("#" + sword.name) : (sword["Legendary Name"] + " - #" + sword.name)}</Card.Title>
+          <Card.Title datakey={i}>{name}</Card.Title>
           <Card.Text datakey={i}>
-          {!sword["Legendary Name"] ? ("Randomly Generated Blade") : 'Legendary Blade'}
-          </Card.Text>
-          <Card.Text datakey={i}>
+          {!sword["Legendary Name"] ? (!sword["Godly Name"] ? ("Randomly Generated Blade") : "Godly Blade") : 'Legendary Blade'}
+          <br></br>
           <b>{'Rank - ' + sword.rank}</b>
           </Card.Text>
           {/* <Button variant="primary">Attack Stats</Button> */}
@@ -237,7 +238,7 @@ class Sword extends React.Component {
     return (<Pagination>
       <Pagination.First disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: 1})} />
       <Pagination.Prev disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
-      {this.getPageNumbers()}
+      {/*{this.getPageNumbers()}*/}
       <Pagination.Next disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.nextPage()}/>
       <Pagination.Last  disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}/>
     </Pagination>);
@@ -401,7 +402,12 @@ class Sword extends React.Component {
               <p><b>Legendary Name:</b> {sword['Legendary Name']}
               <b className='green'>{'+' + sword.rarity['Legendary Name'].toFixed(2)}</b></p>
             ) : (
-              <></>
+              sword["Godly Name"] ? (
+                <p><b>Legendary Name:</b> {sword['Godly Name']}
+                <b className='green'>{'+' + sword.rarity['Godly Name'].toFixed(2)}</b></p>
+              ) : (
+                <></>
+              )
             )
           }
           <p><b>Total Score:</b> <b class='green'>{sword['totalScore'].toFixed(2)}</b>

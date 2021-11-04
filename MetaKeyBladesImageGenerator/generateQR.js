@@ -6,7 +6,9 @@ const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(720, 1080);
 
 const createQR = async(name) => {
-    console.log(await QRCode.toCanvas(canvas, 'https://test.metakeyblades.com/attack'));
+    
+    console.log(await QRCode.toCanvas(canvas, 'https://twitter.com/metakeyblades'));
+
 
     const ctx = canvas.getContext("2d");
     // get the image data object

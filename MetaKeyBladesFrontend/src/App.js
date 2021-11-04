@@ -16,9 +16,13 @@ import celt from './img/team/celt.png'
 import eldor from './img/team/eldor.png'
 import bandit from './img/team/bandit.png'
 
+import "animate.css/animate.min.css";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faDiscord, faTwitter } from '@fortawesome/free-brands-svg-icons'
 import { faGlobe } from '@fortawesome/free-solid-svg-icons'
+
+import ScrollAnimation from 'react-animate-on-scroll';
 
 import Timer from './timer/Timer'
 
@@ -71,10 +75,10 @@ export default function App() {
           <Route path="/mint">
             <Mint />
           </Route>
-          {/* <Route path='/sword/:id' component={Sword}>
+          <Route path='/sword/:id' component={Sword}>
           </Route>
           <Route path='/sword' component={Sword}>
-          </Route> */}
+          </Route>
           <Route path="/">
             <Home />
           </Route>
@@ -88,7 +92,10 @@ function Home() {
     return (
     <div className="App">
       <div className='aboutUs' id='aboutUs'>
+        <ScrollAnimation initiallyVisible animateIn='pulse'>
         <div><img className='logo' src={logo} /></div>
+        </ScrollAnimation>
+        <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
         <div className='aboutUsText'>
           <h1>A generative collection of weapons</h1>
           <p>
@@ -98,7 +105,10 @@ function Home() {
           </p>
           <button><a className="joinDisc" href="https://discord.gg/metakeyblades">Join Our Discord</a></button>
         </div>
+        </ScrollAnimation>
+        <ScrollAnimation animateIn='bounceIn' animateOut='bounceOut'>
         <Timer></Timer>
+        </ScrollAnimation>
       </div>
       <div className='overview' id='overview'>
           <div className='overviewText'>
@@ -111,31 +121,37 @@ function Home() {
       </div>
       <div className='faq' id='faq'>
           <div className='faqText'>
+            <ScrollAnimation initiallyVisible animateIn='pulse'>
             <h1>FAQ 🤔</h1>
+            </ScrollAnimation>
             <p className="listItem"><h2>What are the details of the sale?</h2></p>
             <p className="listItem">There will be a total supply of 2500 unique tokens. The price will be 0.06 ETH.</p>
             <p className="listItem"><h2>When will I be able to mint?</h2></p>
             <p className="listItem">The public sale is Nov. 12, 2021</p>
             <p className="listItem"><h2>Is there a Presale or Whitelist?</h2></p>
             <p className="listItem">There is a whitelist and presale the day prior to public sale. You are to mint up to 2 per wallet in whitelist.</p>
-            <p className="listItem"><h2>How many whitelist spots will be available?</h2></p>
-            <p className="listItem">250 whitelist spots are rewarded to the community through discord.</p>
             <p className="listItem"><h2>How many can you mint during the sale?</h2></p>
             <p className="listItem">You can mint up to 10 per transaction.</p>
             <p className="listItem"><h2>Do I have commercial rights to my MetaKey Blade?</h2></p>
             <p className="listItem">You have full non-exclusive rights. You can use the NFT you own as you wish. However, MetaKey Blades will also have the rights to use your NFT for future projects and marketing.</p>
           </div>
       </div>
+      
       <div className='faq' id='roadmap'>
           <div className='faqText'>
+            <ScrollAnimation initiallyVisible animateIn='pulse'>
             <h1>Launch Roadmap 🚀</h1>
-            <div className='road-box'>
-              <div className='road-left'><h2>25%</h2></div>
-              <div className='road-right'>
-              <h2>The Beginning</h2>
-              <p className="listItem">We will donate a portion of earnings to a charity organization.</p>
+            </ScrollAnimation>
+            <ScrollAnimation duration={1.5} animateIn='fadeInRight' animateOut='fadeOutLeft'>
+              <div className='road-box'>
+                <div className='road-left'><h2>25%</h2></div>
+                <div className='road-right'>
+                <h2>The Beginning</h2>
+                <p className="listItem">We will donate a portion of earnings to a charity organization.</p>
               </div>
             </div>
+            </ScrollAnimation>
+            <ScrollAnimation duration={1.5} animateIn='fadeInRight' animateOut='fadeOutLeft'>
             <div className='road-box'>
               <div className='road-left'><h2>50%</h2></div>
               <div className='road-right'>
@@ -143,6 +159,8 @@ function Home() {
               <p className="listItem">We will Airdrop a free NFT to 5 MetaKey Blade holders.</p>
               </div>
             </div>
+            </ScrollAnimation>
+            <ScrollAnimation duration={1.5} animateIn='fadeInRight' animateOut='fadeOutLeft'>
             <div className='road-box'>
               <div className='road-left'><h2>75%</h2></div>
               <div className='road-right'>
@@ -150,6 +168,8 @@ function Home() {
               <p className="listItem">Celestial Weaponsmith active for community reward claims.</p>
               </div>
             </div>
+            </ScrollAnimation>
+            <ScrollAnimation duration={1.5} animateIn='fadeInRight' animateOut='fadeOutLeft'>
             <div className='road-box'>
               <div className='road-left'><h2>100%</h2></div>
               <div className='road-right'>
@@ -157,10 +177,12 @@ function Home() {
               <p className="listItem">Reveal process begins and all owners are bonded with their blades.</p>
               </div>
             </div>
+            </ScrollAnimation>
           </div>
       </div>
       <div className='overview' id='team'>
           <h1 className='team-header'>MKB Team 🗡️</h1>
+          <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
           <div className='overviewText team'>
             <img className='team-img' src={celt}/>
             <h1>Celt</h1>
@@ -170,6 +192,8 @@ function Home() {
             <p className="listItem">Previous project - <a className='team-link' href='https://twitter.com/FinalTcg'>EthRangers </a></p>
             <a className='social' href="https://twitter.com/FinalTcg"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
           </div>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
           <div className='overviewText team'>
             <img className='team-img' src={slatt}/>
             <h1>Slatt</h1>
@@ -179,6 +203,8 @@ function Home() {
             <a className='social' href="https://twitter.com/0666eth"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
             <a className='social file' href="https://y.at/☢️⚠️☢️"><FontAwesomeIcon icon={faGlobe} size="2x" /></a>
           </div>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
           <div className='overviewText team'>
             <img className='team-img' src={bandit}/>
             <h1>Bandit</h1>
@@ -187,6 +213,8 @@ function Home() {
               NFT lover and supporter who wants to bring MKB to the next level. </p>
               <a className='social' href="https://twitter.com/degenbandit"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
           </div>
+          </ScrollAnimation>
+          <ScrollAnimation animateIn='fadeIn' animateOut='fadeOut'>
           <div className='overviewText team'>
             <img className='team-img' src={eldor}/>
             <h1>Eldor</h1>
@@ -195,6 +223,7 @@ function Home() {
             I spend my time contributing to the ETH network and Web3. Inspired by the Sevens, Animetas and Uwucrew 🌎</p>
             <a className='social' href="https://twitter.com/eldor4747"><FontAwesomeIcon icon={faTwitter} size="2x" /></a>
           </div>
+          </ScrollAnimation>
       </div>
       <div className='footer'>
           <div className='footerText'>

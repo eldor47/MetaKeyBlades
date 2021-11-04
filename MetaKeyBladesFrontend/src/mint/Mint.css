@@ -2,48 +2,47 @@
     max-width: 100%;
     background-color: rgba(158, 250, 230);
     background-image: linear-gradient(to right, rgba(158, 250, 230), rgba(158, 250, 202));
-    height: 100vh;
+    height: 100%;
     padding: 30px;
     font-size: 22px;
     font-weight: 300;
-  }
+}
 
-  .total {
-      text-align: center;
-  }
+.total {
+    text-align: center;
+}
 
-  .info {
-      text-align: center;
-      margin: 0 auto;
-  }
+.info {
+    text-align: center;
+    margin: 0 auto;
+}
 
-  .progress {
-      width: 350px;
-      height: 35px;
-      margin: 0 auto;
-  }
+.progress {
+    width: 300px;
+    height: 35px;
+    margin: 0 auto;
+}
 
-  .minter {
+.minter {
     margin: 0 auto;
     margin-top: 10px;
     padding: 10px;
-  }
+}
 
-  .btn {
-    margin:0 auto;
-    display:block;
+.btn {
+    margin: 0 auto;
+    display: block;
     margin-top: 20px;
     margin-bottom: 10px;
-    }
+}
 
-.slideshowGIF{
+.slideshowGIF {
     width: 300px;
-    margin:0 auto;
-    display:block;
+    margin: 0 auto;
+    display: block;
     margin-top: 20px;
     border: 3px solid black;
     border-radius: 20px;
 }
 
-.btn-holder{
-}
+.btn-holder {}

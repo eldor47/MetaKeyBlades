@@ -7,6 +7,7 @@ const canvas = createCanvas(720, 1080);
 const ctx = canvas.getContext("2d");
 
 const rarities = require('./rarity.json');
+const customBlades = require('./customBlades.json');
 
 // Example hash... not exactly sure how i set this as it uploads yet
 const baseURI = 'ipfs://QmaJN5GX9NRKzUJxWGrQA3Z1xzaCu5MnbuXC3pS6TGw8D5/';
@@ -26,6 +27,22 @@ const drawLayer = async (baseImg, gripImg, gemImage, bgImage, qrImage, logoImage
     ctx.drawImage(baseImg, -180, 0, 1080, 1080)
     ctx.drawImage(gripImg, -180, 0, 1080, 1080)
     ctx.drawImage(gemImage, -180, 0, 1080, 1080)
+    saveLayer(canvas, imgName)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+const drawLayerGodly = async (bgImage, imgName) => {
+    ctx.drawImage(bgImage, -180, 0, 1080, 1080)
+    // ctx.drawImage(qrImage, 505, 845, 148*0.93, 148*0.93)
+    // ctx.drawImage(logoImage, 50, 835, 148, 148)
+    saveLayer(canvas, imgName)
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+const drawLayerBack = async (bgImage, qrImage, logoImage, imgName) => {
+    ctx.drawImage(bgImage, -180, 0, 1080, 1080)
+    ctx.drawImage(qrImage, 505, 845, 148*0.93, 148*0.93)
+    ctx.drawImage(logoImage, 50, 835, 148, 148)
     saveLayer(canvas, imgName)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 }
@@ -63,6 +80,20 @@ const generateAttribute = async(layer) => {
         ]
     }
 
+    if(layer.title){
+        if(layer.godly){
+            metaData.attributes.push({
+                trait_type: "Godly Name",
+                value: layer.title
+            })
+        } else {
+            metaData.attributes.push({
+                trait_type: "Legendary Name",
+                value: layer.title
+            })
+        }
+    }
+
     var json = JSON.stringify(metaData);
     fs.writeFileSync(`./images/combined/json/${metaData.name}.json`, json, 'utf8');
 
@@ -82,12 +113,50 @@ const generateAttribute = async(layer) => {
  * 
 */
 
+async function getCustomIds(total, customSwords){
+    var randIds = [];
+    var customObjs = [];
+    for(var i = 0; i < customSwords.length; i++){
+        var rand = Math.floor(Math.random() * total) + 1
+        if(randIds.includes(rand)){
+            i--;
+        } else {
+            randIds.push(rand)
+            var sword = customSwords[i]
+            var customObj = {
+                id: randIds[i],
+                name: sword.name ? sword.name : sword.legendaryName,
+                swordbase: sword.bladeType + '_' + sword.bladeMaterial,
+                hilt: sword.hilt + '_Hilt',
+                manastone: sword.manaShape + '_' + sword.manaColor + 'Manastone',
+                bg: sword.bg
+            }
+
+            if(sword["png file name"]){
+                customObj.fileName = sword["png file name"]
+                customObj.custom = true
+                if(sword["png file name"].includes('godly')){
+                    customObj.godly = true
+                }
+            }
+            customObjs.push(customObj)
+        }
+    }
+    console.log(customObjs)
+    console.log(randIds);
+    return customObjs;
+}
+
 async function generateCombinationsRarity(){
 
     // example 16 total combos
     //console.log(rarities);
 
-    var totalNums = 100;
+    var totalNums = 1000;
+
+    var customs = await getCustomIds(totalNums, customBlades)
+
+    console.log("end random")
 
     var createdCombos = [];
     var strMetaData = [];
@@ -119,7 +188,7 @@ async function generateCombinationsRarity(){
     });
     
     var wasDupe = false;
-    for(var i = 0; i < totalNums; i++){
+    for(var i = 1; i <= totalNums; i++){
         var resSwordType = weightedRand(sortedSwordTypes);
         var resSwordMaterial = weightedRand(sortedSwordMaterials);
         var resSwordHilt = weightedRand(sortedHilts);
@@ -177,30 +246,85 @@ async function generateCombinationsRarity(){
             i--;
         } else {
             try{
-                var baseImg = await loadImage(`./images/swordbase/${swordChoice}_${materialChoice}.png`);
-                var hiltImg = await loadImage(`./images/grips/${hiltChoice}.png`);
-                var stoneImg = await loadImage(`./images/manastones/${manaStonechoice}.png`);
-                var bgImg = await loadImage(`./images/backgrounds/${backgroundChoice}.png`);
-                var qrImage = await loadImage(`./images/qrCode/${backgroundChoice}QR.png`);
-                var logoImage = await loadImage(`./images/logos/${backgroundChoice}Logo.png`);
+                var customCheck = customs.find(x => x.id == i)
+                if(customCheck){
+                    console.log('Found ID: ' + i)
+                    console.log(customCheck)
+                    var baseImg
+                    var hiltImg
+                    var stoneImg 
+                    var bgImg
+                    var qrImage 
+                    var logoImage
 
-                await drawLayer(baseImg, hiltImg, stoneImg, bgImg, qrImage, logoImage, `${i}.png`);
+                    if(customCheck.godly || customCheck.custom){
+                        bgImg = await loadImage(`./images/legendaries/${customCheck.fileName}.png`);
+                        // var qrImage = await loadImage(`./images/qrCode/${customCheck.bg}QR.png`);
+                        // var logoImage = await loadImage(`./images/logos/${customCheck.bg}Logo.png`);
 
-                var layer = {
-                    bladeType: sortedSwordTypes[randSwordNum].name,
-                    bladeMaterial: sortedSwordMaterials[randMaterialNum].name,
-                    hilt: sortedHilts[randHiltNum].name,
-                    gemName: manaName,
-                    gemShape: manaShape,
-                    background: acceptableBackgrounds[randomBackground].name,
-                    name: i
+                        await drawLayerGodly(bgImg, `${i}.png`);
+
+                    } else {
+                        baseImg = await loadImage(`./images/swordbase/${customCheck.swordbase}.png`);
+                        hiltImg = await loadImage(`./images/grips/${customCheck.hilt}.png`);
+                        stoneImg = await loadImage(`./images/manastones/${customCheck.manastone}.png`);
+                        bgImg = await loadImage(`./images/backgrounds/${customCheck.bg}.png`);
+                        qrImage = await loadImage(`./images/qrCode/${customCheck.bg}QR.png`);
+                        logoImage = await loadImage(`./images/logos/${customCheck.bg}Logo.png`);
+
+                        await drawLayer(baseImg, hiltImg, stoneImg, bgImg, qrImage, logoImage, `${i}.png`);
+                    }
+
+                    var layer = {
+                        bladeType: customCheck.swordbase.split('_')[1],
+                        bladeMaterial: customCheck.swordbase.split('_')[3],
+                        hilt: customCheck.hilt.split('_')[1],
+                        gemName: customCheck.manastone.includes('none') ? "None" : 
+                        customCheck.manastone.split('_')[3].substring(0, customCheck.manastone.split('_')[3].length - 9),
+                        gemShape: customCheck.manastone.includes('none') ? "None" : customCheck.manastone.split('_')[1],
+                        background: customCheck.bg.split('_')[1],
+                        name: i,
+                        title: customCheck.name  
+                    }
+
+                    if(customCheck.godly){
+                        layer.godly = true;
+                    }
+
+                    metaData.push(await generateAttribute(layer))
+
+                    swordCombo = customCheck.swordbase + '_' + customCheck.hilt + '_' + customCheck.manastone;
+
+                    createdCombos.push(swordCombo);
+                    strMetaData.push(`#${i}_${swordCombo}`);
+                    console.log("SWORD #" + i + ":" + swordCombo);
+
+                } else{
+                    var baseImg = await loadImage(`./images/swordbase/${swordChoice}_${materialChoice}.png`);
+                    var hiltImg = await loadImage(`./images/grips/${hiltChoice}.png`);
+                    var stoneImg = await loadImage(`./images/manastones/${manaStonechoice}.png`);
+                    var bgImg = await loadImage(`./images/backgrounds/${backgroundChoice}.png`);
+                    var qrImage = await loadImage(`./images/qrCode/${backgroundChoice}QR.png`);
+                    var logoImage = await loadImage(`./images/logos/${backgroundChoice}Logo.png`);
+
+                    await drawLayer(baseImg, hiltImg, stoneImg, bgImg, qrImage, logoImage, `${i}.png`);
+
+                    var layer = {
+                        bladeType: sortedSwordTypes[randSwordNum].name,
+                        bladeMaterial: sortedSwordMaterials[randMaterialNum].name,
+                        hilt: sortedHilts[randHiltNum].name,
+                        gemName: manaName,
+                        gemShape: manaShape,
+                        background: acceptableBackgrounds[randomBackground].name,
+                        name: i
+                    }
+
+                    metaData.push(await generateAttribute(layer))
+
+                    createdCombos.push(swordCombo);
+                    strMetaData.push(`#${i}_${swordCombo}`);
+                    console.log("SWORD #" + i + ":" + swordCombo);
                 }
-
-                metaData.push(await generateAttribute(layer))
-
-                createdCombos.push(swordCombo);
-                strMetaData.push(`#${i}_${swordCombo}`);
-                console.log("SWORD #" + i + ":" + swordCombo);
             } catch(e){
                 console.log(e);
                 i--;
@@ -227,6 +351,16 @@ async function generateCombinationsRarity(){
      * 10%
      */
 
+}
+
+async function generateBackgroundCombos(color) {
+
+    var bgImg = await loadImage(`./images/backgrounds/${color}.png`);
+    var qrImage = await loadImage(`./images/qrCode/${color}QR.png`);
+    var logoImage = await loadImage(`./images/logos/${color}Logo.png`);
+    var imgName = color + '.png'
+
+    drawLayerBack(bgImg, qrImage, logoImage, imgName);
 }
 
 function weightedRand(spec) {
@@ -258,5 +392,16 @@ function weightedRand(spec) {
 
 
   generateCombinationsRarity();
-
-//generateCombinations();
+//   generateBackgroundCombos("00_BlueYellow");
+//   generateBackgroundCombos("01_GunMetal");
+//   generateBackgroundCombos("02_OrangeYellow");
+//   generateBackgroundCombos("03_BluePurple");
+//   generateBackgroundCombos("04_Pink");
+//   generateBackgroundCombos("05_Gold");
+//   generateBackgroundCombos("06_Purple");
+//   generateBackgroundCombos("07_Prismatic");
+//   generateBackgroundCombos("08_RedWhite");
+//   generateBackgroundCombos("09_Violet");
+//   generateBackgroundCombos("10_Green");
+//   generateBackgroundCombos("11_Blue");
+//   generateBackgroundCombos("12_MixedBerry");

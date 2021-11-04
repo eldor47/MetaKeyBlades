@@ -5,6 +5,8 @@ import { Button, ProgressBar } from 'react-bootstrap'
 import { connectWallet, getCurrentWalletConnected } from "../utils/interact";
 import SmartContract from "../contracts/SmartContract.json";
 
+import Select from 'react-select';
+
 import swordGIF from '../img/slideshow.gif'
 
 import './Mint.css'
@@ -25,7 +27,22 @@ class Mint extends React.Component {
             web3: null,
             blockchain: null,
             errorMsg: '',
-            feedback: ''
+            feedback: '',
+            totalSupply: '',
+            totalMinted: '',
+            typeOptions: [
+                { value: 1, label: 1 },
+                { value: 2, label: 2 },
+                { value: 3, label: 3 },
+                { value: 4, label: 4 },
+                { value: 5, label: 5 },
+                { value: 6, label: 6 },
+                { value: 7, label: 7 },
+                { value: 8, label: 8 },
+                { value: 9, label: 9 },
+                { value: 10, label: 10 }
+              ],
+            mintingAmount: 1
         };
 
         this.timer = null;
@@ -42,14 +59,15 @@ class Mint extends React.Component {
                     method: "net_version",
                 });
                 var web3 = this.state.web3
-                console.log(web3)
+                console.log(networkId)
                 const NetworkData = await SmartContract.networks[networkId];
-                if (networkId == 4) {
+                console.log('test' + NetworkData)
+                if (NetworkData/*networkId == 4*/) {
                     const SmartContractObj = new web3.eth.Contract(
                         SmartContract.abi,
-                        // NetworkData.address
+                        NetworkData.address
                         //Rinkeby test contract
-                        "0x497300D61a706d773F0B224a5cb77cef0E4563Bb"
+                        //"0x497300D61a706d773F0B224a5cb77cef0E4563Bb"
                     );
                     await this.setState({
                         wallet: accounts[0],
@@ -103,6 +121,18 @@ class Mint extends React.Component {
         if (this.state.wallet !== '') {
             await this.setState({ web3: new Web3(window.ethereum) });
             await this.connect()
+
+            this.state.smartContract.methods.totalSupply().call().then((data) => {
+                this.setState({ totalMinted: data})
+            }).catch((err) => {
+                console.log(err)
+            })
+
+            this.state.smartContract.methods.maxSupply().call().then((data) => {
+                this.setState({ maxSupply: data})
+            }).catch((err) => {
+                console.log(err)
+            })
         }
     }
 
@@ -139,6 +169,7 @@ class Mint extends React.Component {
         var wallet = this.state.wallet
         var web3 = this.state.web3
         try {
+            console.log(smartContract.methods)
             smartContract.methods.walletOfOwner(wallet).call().then((data) => {
                 console.log(data)
             }).catch((err) => {
@@ -156,6 +187,18 @@ class Mint extends React.Component {
         if (this.state.wallet !== '') {
             await this.setState({ web3: new Web3(window.ethereum) });
             await this.connect()
+            
+            this.state.smartContract.methods.totalSupply().call().then((data) => {
+                console.log(data)
+            }).catch((err) => {
+                console.log(err)
+            })
+
+            this.state.smartContract.methods.maxSupply().call().then((data) => {
+                console.log(data)
+            }).catch((err) => {
+                console.log(err)
+            })
         }
     };
 
@@ -187,12 +230,21 @@ class Mint extends React.Component {
         }
     }
 
+    async handleSelect(options, names) {
+        await this.setState({
+            mintingAmount: options.value
+        })
+    }
+
 
     render() {
         var wallet = this.state.wallet
         var errorMsg = this.state.errorMsg
         var feedback = this.state.feedback
         var claimingNft = this.state.claimingNft
+        var totalMinted = this.state.totalMinted
+        var maxSupply = this.state.maxSupply
+
         return (
             <div className="mint">
                 <div className='info'>
@@ -200,10 +252,10 @@ class Mint extends React.Component {
                     <p>Mint price is 0.06 ETH for each ERC721 Token</p>
                 </div>
                 <div class='total'>
-                    <h2>500/2500 minted</h2>
+                    <h2>{totalMinted}/{maxSupply} minted</h2>
                 </div>
                 <div class='progress'>
-                    <ProgressBar now={60} label={`${60}%`} />
+                    <ProgressBar now={(totalMinted / maxSupply)} />
                 </div>
                 <div className='minter'>
                     <Button id="walletButton" onClick={this.connectWalletPressed}>
@@ -222,32 +274,31 @@ class Mint extends React.Component {
                                 Mint MKB Token
                             </h2>
                             <p style={{ textAlign: "center" }}>{feedback}</p>
+                            <Select
+                                name="filter"
+                                onChange={(e) => this.handleSelect(e)}
+                                options={this.state.typeOptions}
+                                defaultValue={this.state.typeOptions[0]}
+                                className="basic-multi-select"
+                                classNamePrefix="select"
+                                />
                             <Button
                                 disabled={this.state.claimingNft ? 1 : 0}
                                 onClick={(e) => {
                                     e.preventDefault();
-                                    this.claimNFTs(1);
+                                    this.claimNFTs(this.state.mintingAmount);
                                 }}
                             >
-                                {claimingNft ? "Processing..." : "Mint 1"}
+                                {claimingNft ? "Processing..." : "Mint"}
                             </Button>
-                            <Button
-                                disabled={this.state.claimingNft ? 1 : 0}
-                                onClick={(e) => {
-                                    e.preventDefault();
-                                    this.claimNFTs(2);
-                                }}
-                            >
-                                {claimingNft ? "Processing..." : "Mint 2"}
-                            </Button>
-                            <Button
+                            {/* <Button
                                 onClick={(e) => {
                                     e.preventDefault();
                                     this.walletOfOwner();
                                 }}
                             >
                                 {claimingNft ? "Processing..." : "My Swords"}
-                            </Button>
+                            </Button> */}
                         </div>
                     ) : (<></>)}
                     <div class='img-holder'>

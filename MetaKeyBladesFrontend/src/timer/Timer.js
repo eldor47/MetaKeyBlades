@@ -8,7 +8,7 @@ function Timer() {
   const history = useHistory();
   const calculateTimeLeft = () => {
     let year = new Date().getFullYear();
-    const difference = +new Date(`2021-11-12 16:00`) - +new Date();
+    const difference = new Date("2021-11-12T16:00:00Z") - new Date();
     let timeLeft = {};
 
     if (difference > 0) {
