@@ -7,8 +7,9 @@ function Timer() {
 
   const history = useHistory();
   const calculateTimeLeft = () => {
-    let year = new Date().getFullYear();
-    const difference = new Date("2021-11-12T16:00:00Z") - new Date();
+    var currDate = new Date()
+    var endDate = new Date(Date.UTC(2021, 10, 13, 1, 0, 0))
+    const difference = endDate - currDate;
     let timeLeft = {};
 
     if (difference > 0) {
@@ -24,7 +25,6 @@ function Timer() {
   };
 
   const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
-  const [year] = useState(new Date().getFullYear());
 
   useEffect(() => {
     setTimeout(() => {

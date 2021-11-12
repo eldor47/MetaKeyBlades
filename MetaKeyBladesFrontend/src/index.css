@@ -313,7 +313,7 @@ h1 {
   border-right: 2px solid black;
   padding: 30px;
   padding-top: 45px;
-  width: 180px;
+  min-width: 150px;
   text-align: center;
   background-color: black;
   color: rgba(158, 250, 230);

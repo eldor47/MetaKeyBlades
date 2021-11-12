@@ -56,10 +56,11 @@ export default function App() {
                           Twitter
                         </NavDropdown.Item>
                         <NavDropdown.Divider />
-                        <NavDropdown.Item disabled href="#action/3.4">
+                        <NavDropdown.Item href="https://opensea.io/collection/metakey-blades">
                           OpenSea
                         </NavDropdown.Item>
                       </NavDropdown>
+                      <Nav.Link href="https://opensea.io/collection/metakey-blades">Opensea</Nav.Link>
                     </Nav>
                   </Navbar.Collapse>
                 </Navbar>
@@ -99,7 +100,7 @@ function Home() {
         <div className='aboutUsText'>
           <h1>A generative collection of weapons</h1>
           <p>
-          There are a total of 2,500 weapons that act as keys throughout the metaverse. Each key allows you to mint 1 free NFT, plus gas on each future project. 
+          There are a total of 1,500 weapons that act as keys throughout the metaverse. Each key allows you to mint 1 free NFT, plus gas on each future project. 
           All weapons contain a celestial manastone fragment that is charged by the power of the gods. 
           When your weapon is bonded to you through the blockchain, you are able to pass through the celestial gates and onto adventure.
           </p>
@@ -125,15 +126,17 @@ function Home() {
             <h1>FAQ 🤔</h1>
             </ScrollAnimation>
             <p className="listItem"><h2>What are the details of the sale?</h2></p>
-            <p className="listItem">There will be a total supply of 2500 unique tokens. The price will be 0.06 ETH.</p>
+            <p className="listItem">There will be a total supply of 1500 unique tokens. The price will be 0.06 ETH.</p>
             <p className="listItem"><h2>When will I be able to mint?</h2></p>
             <p className="listItem">The public sale is Nov. 12, 2021</p>
             <p className="listItem"><h2>Is there a Presale or Whitelist?</h2></p>
-            <p className="listItem">There is a whitelist and presale the day prior to public sale. You are to mint up to 2 per wallet in whitelist.</p>
+            <p className="listItem">There is a whitelist and presale prior to public sale. More details in Discord</p>
             <p className="listItem"><h2>How many can you mint during the sale?</h2></p>
             <p className="listItem">You can mint up to 10 per transaction.</p>
             <p className="listItem"><h2>Do I have commercial rights to my MetaKey Blade?</h2></p>
             <p className="listItem">You have full non-exclusive rights. You can use the NFT you own as you wish. However, MetaKey Blades will also have the rights to use your NFT for future projects and marketing.</p>
+            <p className="listItem"><h2>When will blades be revealed?</h2></p>
+            <p className="listItem">Blades will be revealed one day after mint on Nov. 13th. Time will be announced in Discord</p>
           </div>
       </div>
       
@@ -147,7 +150,7 @@ function Home() {
                 <div className='road-left'><h2>25%</h2></div>
                 <div className='road-right'>
                 <h2>The Beginning</h2>
-                <p className="listItem">We will donate a portion of earnings to a charity organization.</p>
+                <p className="listItem">We will donate a portion of earnings to National Pediatric Cancer Foundation.</p>
               </div>
             </div>
             </ScrollAnimation>
@@ -156,7 +159,7 @@ function Home() {
               <div className='road-left'><h2>50%</h2></div>
               <div className='road-right'>
               <h2>Taking Off</h2>
-              <p className="listItem">We will Airdrop a free NFT to 5 MetaKey Blade holders.</p>
+              <p className="listItem">Celestial Weaponsmith becomes active for community reward claims. This will involve the QR codes on the blades.</p>
               </div>
             </div>
             </ScrollAnimation>
@@ -165,7 +168,7 @@ function Home() {
               <div className='road-left'><h2>75%</h2></div>
               <div className='road-right'>
               <h2>Celestial Awakening</h2>
-              <p className="listItem">Celestial Weaponsmith active for community reward claims.</p>
+              <p className="listItem">Blade IDs wil be randomly chosen for a total of 1 ETH in giveaways.</p>
               </div>
             </div>
             </ScrollAnimation>
@@ -174,7 +177,7 @@ function Home() {
               <div className='road-left'><h2>100%</h2></div>
               <div className='road-right'>
               <h2>The Unsheathing</h2>
-              <p className="listItem">Reveal process begins and all owners are bonded with their blades.</p>
+              <p className="listItem">Rarity tool will begin showing Blade Rankings. Reveal will start taking place 1 day after mint. Rankings will reveal after all blades are minted.</p>
               </div>
             </div>
             </ScrollAnimation>

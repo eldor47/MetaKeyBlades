@@ -3,6 +3,7 @@
     background-color: rgba(158, 250, 230);
     background-image: linear-gradient(to right, rgba(158, 250, 230), rgba(158, 250, 202));
     height: 100%;
+    min-height: 950px;
     padding: 30px;
     font-size: 22px;
     font-weight: 300;
@@ -27,13 +28,20 @@
     margin: 0 auto;
     margin-top: 10px;
     padding: 10px;
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    width: 100%;
 }
 
-.btn {
+.btn2 {
     margin: 0 auto;
     display: block;
     margin-top: 20px;
     margin-bottom: 10px;
+    background-color: black;
+    border-color: gray;
 }
 
 .slideshowGIF {
@@ -41,8 +49,77 @@
     margin: 0 auto;
     display: block;
     margin-top: 20px;
-    border: 3px solid black;
-    border-radius: 20px;
+    border: 3px solid gray;
 }
 
-.btn-holder {}
+.select2 {
+    max-width: 200px;
+}
+
+.mint-action {
+    display: flex;
+    justify-content: space-around;
+}
+
+.mint-button {
+    margin-top: 0px;
+    height: 45px;
+}
+
+.socialContainer {
+    width: 100%;
+    padding: 30px
+}
+
+.social:hover {
+    text-decoration: none;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+
+.social {
+    transition: 0.7s;
+    text-decoration: none;
+    color: rgba(158, 250, 230)!important;
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 100%;
+    color: rgb(196, 250, 238);
+    margin-bottom: 30px;
+}
+
+.footerText {
+    padding-top: 30px;
+    padding: 50px;
+    max-width: 1000px;
+    min-width: 350px;
+    text-align: left;
+}
+
+.footerDisc {
+    text-decoration: none;
+    color: rgba(36, 36, 36)!important;
+}
+
+.footerDisc:hover {
+    text-decoration: none;
+    color: gray;
+}
+
+.footer-button {
+    background-color: rgba(158, 250, 230);
+    border-color: rgb(40, 58, 54)!important;
+}
+
+.listItem {
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.progress-bar {
+    background-color: black!important;
+}

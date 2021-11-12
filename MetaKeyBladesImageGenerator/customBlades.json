@@ -10,16 +10,6 @@
     "bg": "07_Prismatic"
   },
   {
-    "setName": "00 Sun Set",
-    "name": "Aria",
-    "bladeType": "16_Sun",
-    "bladeMaterial": "18_Adamantite",
-    "hilt": "16_Sun",
-    "manaShape": "00_Round",
-    "manaColor": "07_Prismatic",
-    "bg": "02_OrangeYellow"
-  },
-  {
     "setName": "01 Ranger Set",
     "name": "Lyra",
     "bladeType": "12_Ranger",
@@ -30,16 +20,6 @@
     "bg": "00_BlueYellow"
   },
   {
-    "setName": "01 Ranger Set",
-    "name": "Sunfire",
-    "bladeType": "12_Ranger",
-    "bladeMaterial": "20_SunSteel",
-    "hilt": "12_Ranger",
-    "manaShape": "00_Round",
-    "manaColor": "03_Orange",
-    "bg": "02_OrangeYellow"
-  },
-  {
     "setName": "02 Warrior Set",
     "name": "Rekjel",
     "bladeType": "18_Warrior",
@@ -48,16 +28,6 @@
     "manaShape": "00_Round",
     "manaColor": "06_Purple",
     "bg": "01_GunMetal"
-  },
-  {
-    "setName": "02 Warrior Set",
-    "name": "Rekvar",
-    "bladeType": "18_Warrior",
-    "bladeMaterial": "17_Orichalcum",
-    "hilt": "18_Warrior",
-    "manaShape": "00_Round",
-    "manaColor": "03_Orange",
-    "bg": "02_OrangeYellow"
   },
   {
     "setName": "03 Serpent Set",
@@ -73,21 +43,11 @@
     "setName": "03 Serpent Set",
     "name": "Reyima",
     "bladeType": "14_Serpent",
-    "bladeMaterial": "16_ShadowSteel",
+    "bladeMaterial": "22_BloodMetal",
     "hilt": "14_Serpent",
     "manaShape": "00_Round",
     "manaColor": "02_Red",
     "bg": "08_RedWhite"
-  },
-  {
-    "setName": "04 Paladin Set",
-    "name": "Eternity",
-    "bladeType": "17_Paladin",
-    "bladeMaterial": "24_ChronoSteel",
-    "hilt": "17_Paladin",
-    "manaShape": "00_Round",
-    "manaColor": "00_Green",
-    "bg": "00_BlueYellow"
   },
   {
     "setName": "04 Paladin Set",
@@ -101,16 +61,6 @@
   },
   {
     "setName": "05 Mage Set",
-    "name": "Ghostblade",
-    "bladeType": "08_Mage",
-    "bladeMaterial": "14_GhostFire",
-    "hilt": "08_Mage",
-    "manaShape": "01_Diamond",
-    "manaColor": "00_Green",
-    "bg": "00_BlueYellow"
-  },
-  {
-    "setName": "05 Mage Set",
     "name": "Raia",
     "bladeType": "08_Mage",
     "bladeMaterial": "15_SkyMetal",
@@ -121,30 +71,10 @@
   },
   {
     "setName": "06 Demon Set",
-    "name": "Pain",
-    "bladeType": "24_DemonHunter",
-    "bladeMaterial": "23_Palladium",
-    "hilt": "24_DemonHunter",
-    "manaShape": "00_Round",
-    "manaColor": "06_Purple",
-    "bg": "06_Purple"
-  },
-  {
-    "setName": "06 Demon Set",
     "name": "Rage",
     "bladeType": "24_DemonHunter",
     "bladeMaterial": "09_ScarletMetal",
     "hilt": "24_DemonHunter",
-    "manaShape": "00_Round",
-    "manaColor": "02_Red",
-    "bg": "08_RedWhite"
-  },
-  {
-    "setName": "none",
-    "name": "Bloodlust",
-    "bladeType": "15_Berserker",
-    "bladeMaterial": "09_ScarletMetal",
-    "hilt": "15_Berserker",
     "manaShape": "00_Round",
     "manaColor": "02_Red",
     "bg": "08_RedWhite"
@@ -161,16 +91,6 @@
   },
   {
     "setName": "none",
-    "name": "Deathwind",
-    "bladeType": "19_WindCutter",
-    "bladeMaterial": "18_Adamantite",
-    "hilt": "19_WindCutter",
-    "manaShape": "00_Round",
-    "manaColor": "07_Prismatic",
-    "bg": "07_Prismatic"
-  },
-  {
-    "setName": "none",
     "name": "Elyta",
     "bladeType": "07_WyrmSlayer",
     "bladeMaterial": "25_Galaxy",
@@ -181,16 +101,6 @@
   },
   {
     "setName": "none",
-    "name": "Inferno",
-    "bladeType": "11_Hellfire",
-    "bladeMaterial": "06_DragonMetal",
-    "hilt": "11_Hellfire",
-    "manaShape": "00_Round",
-    "manaColor": "04_Yellow",
-    "bg": "02_OrangeYellow"
-  },
-  {
-    "setName": "none",
     "name": "Melody",
     "bladeType": "21_Melodic",
     "bladeMaterial": "07_MelodicSteel",
@@ -198,16 +108,6 @@
     "manaShape": "00_Round",
     "manaColor": "05_Pink",
     "bg": "04_Pink"
-  },
-  {
-    "setName": "none",
-    "name": "Sanctuary",
-    "bladeType": "10_Druid",
-    "bladeMaterial": "02_ElfSteel",
-    "hilt": "10_Druid",
-    "manaShape": "00_Round",
-    "manaColor": "00_Green",
-    "bg": "10_Green"
   },
   {
     "setName": "none",
@@ -232,9 +132,9 @@
   {
     "png file name": "50_legendary",
     "legendaryName": "Chidori, Lightning Cutter",
-    "bladeType": "50_ghost_lightning",
-    "bladeMaterial": "50_ghost_lightning",
-    "hilt": "50_chimera_bone",
+    "bladeType": "50_Ghost_Lightning",
+    "bladeMaterial": "50_Ghost_Lightning",
+    "hilt": "50_Chimera_Bone",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "01_GunMetal",
@@ -244,9 +144,9 @@
   {
     "png file name": "51_legendary",
     "legendaryName": "Islena, Queen's Envy",
-    "bladeType": "51_ghostFire",
-    "bladeMaterial": "51_ghostFire",
-    "hilt": "51_hydra_bone",
+    "bladeType": "51_GhostFire",
+    "bladeMaterial": "51_GhostFire",
+    "hilt": "51_Hydra_Bone",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "11_Blue",
@@ -256,11 +156,11 @@
   {
     "png file name": "52_legendary",
     "legendaryName": "Vylandria, Death's Kiss",
-    "bladeType": "52_celestial_dragon",
-    "bladeMaterial": "52_shadow_dragon_bone",
-    "hilt": "52_shadow_dragon",
-    "manaShape": "02_godly_diamond",
-    "manaColor": "shadow dragon",
+    "bladeType": "52_Celestial_dragon",
+    "bladeMaterial": "52_Shadow_Dragon_Bone",
+    "hilt": "52_Shadow_dragon",
+    "manaShape": "02_Godly_Diamond",
+    "manaColor": "Shadow Dragon",
     "bg": "12_MixedBerry",
     "mask": "12_MixedBerryMask",
     "background": ""
@@ -268,11 +168,11 @@
   {
     "png file name": "53_legendary",
     "legendaryName": "Ilytria, Shining Heart",
-    "bladeType": "52_celestial_dragon",
-    "bladeMaterial": "53_radiant_dragon_bone",
-    "hilt": "53_radiant_dragon",
-    "manaShape": "02_godly_diamond",
-    "manaColor": "radiant dragon",
+    "bladeType": "52_Celestial_dragon",
+    "bladeMaterial": "53_Radiant_Dragon_Bone",
+    "hilt": "53_Radiant_Dragon",
+    "manaShape": "02_Godly_Diamond",
+    "manaColor": "Radiant Dragon",
     "bg": "11_Blue",
     "mask": "11_BlueMask",
     "background": ""
@@ -280,9 +180,9 @@
   {
     "png file name": "54_legendary",
     "legendaryName": "Arabella, Royal Protector",
-    "bladeType": "54_royal",
-    "bladeMaterial": "54_prismatic_royal_iron",
-    "hilt": "54_sky_royal",
+    "bladeType": "54_Royal",
+    "bladeMaterial": "54_Prismatic_Royal_Iron",
+    "hilt": "54_Sky_Royal",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "12_MixedBerry",
@@ -292,9 +192,9 @@
   {
     "png file name": "55_legendary",
     "legendaryName": "Myrial, Royal Trickster",
-    "bladeType": "54_royal",
-    "bladeMaterial": "55_poison_royal_iron",
-    "hilt": "55_shadow_royal",
+    "bladeType": "54_Royal",
+    "bladeMaterial": "55_Poison_Royal_Iron",
+    "hilt": "55_Shadow_Royal",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "06_Purple",
@@ -304,9 +204,9 @@
   {
     "png file name": "56_legendary",
     "legendaryName": "Astra, Twisted Shadow",
-    "bladeType": "54_royal",
-    "bladeMaterial": "56_dark_royal_iron",
-    "hilt": "56_prismatic_royal",
+    "bladeType": "54_Royal",
+    "bladeMaterial": "56_Dark_Royal_Iron",
+    "hilt": "56_Prismatic_Royal",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "07_Prismatic",
@@ -316,9 +216,9 @@
   {
     "png file name": "57_legendary",
     "legendaryName": "Frayina, Radiant Hope",
-    "bladeType": "57_air_keyblade",
-    "bladeMaterial": "57_celestial_prismatic",
-    "hilt": "57_celestial_prismatic",
+    "bladeType": "57_Air_Keyblade",
+    "bladeMaterial": "57_Celestial_Prismatic",
+    "hilt": "57_Celestial_Prismatic",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "12_MixedBerry",
@@ -328,9 +228,9 @@
   {
     "png file name": "58_legendary",
     "legendaryName": "Kelstes, Eternal Winter",
-    "bladeType": "58_frost_keyblade",
-    "bladeMaterial": "58_eternal_frost",
-    "hilt": "58_eternal_frost",
+    "bladeType": "58_Frost_Keyblade",
+    "bladeMaterial": "58_Eternal_Frost",
+    "hilt": "58_Eternal_Frost",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "12_MixedBerry",
@@ -340,9 +240,9 @@
   {
     "png file name": "59_legendary",
     "legendaryName": "Raiya, Yggdrasil's Gift",
-    "bladeType": "59_earth_keyblade",
-    "bladeMaterial": "59_yggdrasil_wood",
-    "hilt": "59_yggdrasil_wood",
+    "bladeType": "59_Earth_Keyblade",
+    "bladeMaterial": "59_Yggdrasil_Wood",
+    "hilt": "59_Yggdrasil_Wood",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "00_BlueYellow",
@@ -352,9 +252,9 @@
   {
     "png file name": "60_legendary",
     "legendaryName": "Ceres, Sacred Blade",
-    "bladeType": "60_masterblade",
-    "bladeMaterial": "60_shining_genesis_metal",
-    "hilt": "60_shining_genesis",
+    "bladeType": "60_Masterblade",
+    "bladeMaterial": "60_Shining_Genesis_Metal",
+    "hilt": "60_Shining_Genesis",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "11_Blue",
@@ -364,9 +264,9 @@
   {
     "png file name": "61_legendary",
     "legendaryName": "Ceres, Heroes Blade",
-    "bladeType": "60_masterblade",
-    "bladeMaterial": "61_genesis_metal",
-    "hilt": "60_genesis",
+    "bladeType": "60_Masterblade",
+    "bladeMaterial": "61_Genesis_Metal",
+    "hilt": "60_Genesis",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "11_Blue",
@@ -374,23 +274,11 @@
     "background": ""
   },
   {
-    "png file name": "62_legendary",
-    "legendaryName": "Dark Ceres, Twilight Blade",
-    "bladeType": "60_masterblade",
-    "bladeMaterial": "62_dark_genesis_metal",
-    "hilt": "62_dark_genesis",
-    "manaShape": "none",
-    "manaColor": "none",
-    "bg": "04_Pink",
-    "mask": "04_PinkMask",
-    "background": ""
-  },
-  {
     "png file name": "63_legendary",
     "legendaryName": "Styria, Soul Stealer",
-    "bladeType": "63_galaxy_venom",
-    "bladeMaterial": "63_galaxy_venom",
-    "hilt": "63_galaxy_venom",
+    "bladeType": "63_Galaxy_Venom",
+    "bladeMaterial": "63_Galaxy_Venom",
+    "hilt": "63_Galaxy_Venom",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "00_BlueYellow",
@@ -400,9 +288,9 @@
   {
     "png file name": "64_legendary",
     "legendaryName": "Wyrix, Skull Buster",
-    "bladeType": "64_strife",
-    "bladeMaterial": "64_astral_iron",
-    "hilt": "64_strife_bluegreen",
+    "bladeType": "64_Strife",
+    "bladeMaterial": "64_Astral_Iron",
+    "hilt": "64_Strife_Bluegreen",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "01_GunMetal",
@@ -412,9 +300,9 @@
   {
     "png file name": "65_legendary",
     "legendaryName": "Aeria, Cloud Dancer",
-    "bladeType": "64_strife",
-    "bladeMaterial": "64_astral_iron",
-    "hilt": "65_strife_darkred",
+    "bladeType": "64_Strife",
+    "bladeMaterial": "64_Astral_Iron",
+    "hilt": "65_Strife_Darkred",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "07_Prismatic",
@@ -424,9 +312,9 @@
   {
     "png file name": "66_legendary",
     "legendaryName": "Elys, Shadow Enforcer",
-    "bladeType": "64_strife",
-    "bladeMaterial": "64_astral_iron",
-    "hilt": "66_strife_purple",
+    "bladeType": "64_Strife",
+    "bladeMaterial": "64_Astral_Iron",
+    "hilt": "66_Strife_Purple",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "06_Purple",
@@ -436,9 +324,9 @@
   {
     "png file name": "67_legendary",
     "legendaryName": "Aura, Earth's Defender",
-    "bladeType": "64_strife",
-    "bladeMaterial": "64_astral_iron",
-    "hilt": "67_strife_green",
+    "bladeType": "64_Strife",
+    "bladeMaterial": "64_Astral_Iron",
+    "hilt": "67_Strife_Green",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "10_Green",
@@ -448,9 +336,9 @@
   {
     "png file name": "68_legendary",
     "legendaryName": "Crystania, Seventh Harmony",
-    "bladeType": "68_harmonic",
-    "bladeMaterial": "68_pink_harmonic_steel",
-    "hilt": "68_pink_harmonic",
+    "bladeType": "68_Harmonic",
+    "bladeMaterial": "68_Pink_Harmonic_Steel",
+    "hilt": "68_Pink_Harmonic",
     "manaShape": "none",
     "manaColor": "none",
     "bg": "04_Pink",

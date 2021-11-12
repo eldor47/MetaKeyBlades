@@ -5,9 +5,9 @@ const fs = require('fs');
 const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(720, 1080);
 
-const createQR = async(name) => {
+const createQR = async(name, id) => {
     
-    console.log(await QRCode.toCanvas(canvas, 'https://twitter.com/metakeyblades'));
+    console.log(await QRCode.toCanvas(canvas, 'https://live.metakeyblades.com/sword/' + id));
 
 
     const ctx = canvas.getContext("2d");
@@ -45,7 +45,7 @@ const createQR = async(name) => {
     /// draw the image to be clipped
     ctx.drawImage(imgClip, 0, 0);
 
-    await saveLayer(canvas, `${name}QR.png`)
+    await saveLayer(canvas, `${id}_QR.png`)
 }
 
 const saveLayer = async (_canvas, imgName) => {
@@ -57,17 +57,19 @@ const saveLayer = async (_canvas, imgName) => {
     }
 }
 
+exports.createQR = createQR;
 
-createQR('00_BlueYellow')
-createQR('01_GunMetal')
-createQR('02_OrangeYellow')
-createQR('03_BluePurple')
-createQR('04_Pink')
-createQR('05_Gold')
-createQR('06_Purple')
-createQR('07_Prismatic')
-createQR('08_RedWhite')
-createQR('09_Violet')
-createQR('10_Green')
-createQR('11_Blue')
-createQR('12_MixedBerry')
+
+//createQR('00_BlueYellow', 1)
+// createQR('01_GunMetal')
+// createQR('02_OrangeYellow')
+// createQR('03_BluePurple')
+// createQR('04_Pink')
+// createQR('05_Gold')
+// createQR('06_Purple')
+// createQR('07_Prismatic')
+// createQR('08_RedWhite')
+// createQR('09_Violet')
+// createQR('10_Green')
+// createQR('11_Blue')
+// createQR('12_MixedBerry')

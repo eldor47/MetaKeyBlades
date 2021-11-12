@@ -1,29 +1,20 @@
 
 // SPDX-License-Identifier: GPL-3.0
 
-// Created by HashLips
-// The Nerdy Coder Clones
-
 pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract SmartContract is ERC721Enumerable, Ownable {
+contract MetaKeyBlades is ERC721Enumerable, Ownable {
   using Strings for uint256;
 
   string public baseURI;
   string public baseExtension = ".json";
   uint256 public cost = 0.06 ether;
-  uint256 public maxSupply = 2500;
+  uint256 public maxSupply = 1500;
   uint256 public maxMintAmount = 10;
-  uint256 public maxPresale = 2;
   bool public paused = false;
-  bool public isWhitelist = true;
-  mapping(address => bool) public whitelisted;
-  mapping(address => uint256) public presaleBoughtCounts;
-  //Default it to value far in future
-  uint256 public whiteListStartTime = 2000000000;
 
   constructor(
     string memory _name,
@@ -31,7 +22,7 @@ contract SmartContract is ERC721Enumerable, Ownable {
     string memory _initBaseURI
   ) ERC721(_name, _symbol) {
     setBaseURI(_initBaseURI);
-    //mint(msg.sender, 100);
+    mint(msg.sender, 50);
   }
 
   // internal
@@ -47,24 +38,8 @@ contract SmartContract is ERC721Enumerable, Ownable {
     require(supply + _mintAmount <= maxSupply);
 
     if (msg.sender != owner()) {
-        //Check to make sure block wasn't sent early
-        require(block.timestamp >= whiteListStartTime, "Sales are not live");
-        
-        if(isWhitelist != true) {
-          //It is not whitelist and user is not whitelisted
-          require(_mintAmount <= maxMintAmount);
-          require(msg.value >= cost * _mintAmount, "Not enough ether");
-        }
-        if(isWhitelist == true && whitelisted[msg.sender] != true){
-            //User should not be able to buy here
-            require(!isWhitelist, "Whitelist addresses only");
-        }
-        else if (isWhitelist == true && whitelisted[msg.sender] == true){
-            //User is whitelisted and is whitelist period
-            require(presaleBoughtCounts[msg.sender] + _mintAmount <= maxPresale, "Presale max count exceeded!");
-            presaleBoughtCounts[msg.sender] += _mintAmount;
-            require(msg.value >= cost * _mintAmount, "Not enough ether");
-        }
+        require(_mintAmount <= maxMintAmount);
+        require(msg.value >= cost * _mintAmount, "Not enough ether");
     }
 
     for (uint256 i = 1; i <= _mintAmount; i++) {
@@ -124,19 +99,6 @@ contract SmartContract is ERC721Enumerable, Ownable {
     paused = _state;
   }
   
-  function setWhitelist(bool _state, uint256 _startTime) public onlyOwner {
-    isWhitelist = _state;
-    whiteListStartTime = _startTime;
-  }
- 
- function whitelistUser(address _user) public onlyOwner {
-    whitelisted[_user] = true;
-  }
- 
-  function removeWhitelistUser(address _user) public onlyOwner {
-    whitelisted[_user] = false;
-  }
-
   function withdraw() public payable onlyOwner {
     require(payable(msg.sender).send(address(this).balance));
   }

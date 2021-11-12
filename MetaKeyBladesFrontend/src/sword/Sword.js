@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import { Button, InputGroup, FormControl, OverlayTrigger, Tooltip, Pagination, Card, Modal, ButtonGroup } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons'
+import { faArrowUp, faArrowDown, faDiceFive } from '@fortawesome/free-solid-svg-icons'
 
 
 import Select from 'react-select';
@@ -188,8 +188,8 @@ class Sword extends React.Component {
           <Card.Title datakey={i}>{name}</Card.Title>
           <Card.Text datakey={i}>
           {!sword["Legendary Name"] ? (!sword["Godly Name"] ? ("Randomly Generated Blade") : "Godly Blade") : 'Legendary Blade'}
-          <br></br>
-          <b>{'Rank - ' + sword.rank}</b>
+          <br datakey={i}></br>
+          <b datakey={i}>{'Rank - ' + sword.rank}</b>
           </Card.Text>
           {/* <Button variant="primary">Attack Stats</Button> */}
         </Card.Body>
@@ -220,7 +220,7 @@ class Sword extends React.Component {
     var swords = this.state.swords;
     var pageSize = this.state.pageSize;
     var currentPage = this.state.pageNumber;
-    for(var i = 1; i < (swords.length / pageSize)+1; i++){
+    for(var i = 1; i < (swords.length / pageSize)+1; i+=2){
       rows.push(
         <Pagination.Item key={i} datakey={i} onClick={(e) => this.handleClick(e)} active={i===currentPage}>{i}</Pagination.Item>
       )
@@ -229,25 +229,41 @@ class Sword extends React.Component {
   }
 
   nextPage(){
-    this.setState({
-      pageNumber: this.state.pageNumber+1
-    })
+    if(this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)){
+
+    } else {
+      this.setState({
+        pageNumber: this.state.pageNumber+1
+      })
+    }
   }
   
   getPages() {
-    return (<Pagination>
-      <Pagination.First disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: 1})} />
-      <Pagination.Prev disabled={this.state.pageNumber === 1} onClick={()=>this.setState({pageNumber: this.state.pageNumber-1})}/>
-      {/*{this.getPageNumbers()}*/}
-      <Pagination.Next disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.nextPage()}/>
-      <Pagination.Last  disabled={this.state.pageNumber === Math.ceil(this.state.swords.length / this.state.pageSize)} onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}/>
+    return (
+    <Pagination>
+      <Pagination.First  onClick={()=>this.setState({pageNumber: 1})} >First</Pagination.First>
+      <Pagination.Prev  onClick={()=>this.setState({pageNumber: Math.max(this.state.pageNumber-1, 1)})}/>
+      {/* {this.getPageNumbers()} */}
+      <Pagination.Next  onClick={()=> this.nextPage()}/>
+      <Pagination.Last  onClick={()=>this.setState({pageNumber: Math.ceil(this.state.swords.length / this.state.pageSize)})}>
+        Last
+      </Pagination.Last>
     </Pagination>);
   }
 
   async getSwordData(options) {
     var headers = {headers: {'x-api-key': process.env.REACT_APP_API_KEY}}
-    var res = await axios.post('https://xefu37ittb.execute-api.us-west-1.amazonaws.com/test/getblades', options, headers);
-    //swords = res.data.body.blades
+    var res;
+    try{
+      res = await axios.post('https://xefu37ittb.execute-api.us-west-1.amazonaws.com/test/getblades', options, headers);
+    }   catch (e) {
+      console.log(e)
+      return [];
+    }
+    if(res.data.errorMessage){
+      return [];
+    }
+
     return res.data.body.blades;
   }
 
@@ -537,7 +553,7 @@ class Sword extends React.Component {
                   size="1x"/>
                 </Button>
                 </OverlayTrigger>
-                <OverlayTrigger
+                {/* <OverlayTrigger
                   placement='top'
                   overlay={
                     <Tooltip id={`tooltip-top`}>
@@ -548,7 +564,7 @@ class Sword extends React.Component {
                 <Button className='myBlades' onClick={() => {}}>
                 ⚔️ My Blades
                 </Button>
-                </OverlayTrigger>
+                </OverlayTrigger> */}
               </ButtonGroup>
             </div>
           </div>
@@ -558,10 +574,13 @@ class Sword extends React.Component {
           </div>
           ) : (
             <div className='sword-holder'>
-              {this.getRows()}
               <div className='page-holder'>
                 {this.getPages()}
               </div>
+              <div className='page-holder'>
+                <p>Showing page {this.state.pageNumber} of {Math.ceil(this.state.swords.length / this.state.pageSize)}</p>
+              </div>
+              {this.getRows()}
             </div>
           )}
 

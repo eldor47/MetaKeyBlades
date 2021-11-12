@@ -7,6 +7,9 @@
 /images/backgrounds
 /images/manastones
 /images/swordbase
+/images/qrCode/*.png
+
+/qrCode/*
 /.pnp
 .pnp.js
 

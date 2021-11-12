@@ -1,5 +1,5 @@
-const SmartContract = artifacts.require("SmartContract");
+const SmartContract = artifacts.require("MetaKeyBlades");
 
 module.exports = function (deployer) {
-  deployer.deploy(SmartContract, "Name", "Symbol", "https://");
+  deployer.deploy(SmartContract, "MetaKey Blades", "MKB", "https://");
 };
