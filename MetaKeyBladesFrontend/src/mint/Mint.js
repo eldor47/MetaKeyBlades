@@ -99,6 +99,7 @@ class Mint extends React.Component {
             }).then((receipt) => {
                 this.setFeedback('Token(s) Successfully Minted!')
                 this.setClaimingNft(false)
+                this.getTotals()
             }).catch((err) => {
                 console.log(err)
                 this.setFeedback("Transaction failed")
@@ -110,6 +111,20 @@ class Mint extends React.Component {
             this.setClaimingNft(false)
         }
     };
+
+    getTotals(){
+        this.state.smartContract.methods.totalSupply().call().then((data) => {
+            this.setState({ totalMinted: data })
+        }).catch((err) => {
+            console.log(err)
+        })
+
+        this.state.smartContract.methods.maxSupply().call().then((data) => {
+            this.setState({ totalSupply: data })
+        }).catch((err) => {
+            console.log(err)
+        })
+    }
 
     async componentDidMount() {
         const { address, status } = await getCurrentWalletConnected();
@@ -124,17 +139,7 @@ class Mint extends React.Component {
             await this.connect()
 
             try {
-                this.state.smartContract.methods.totalSupply().call().then((data) => {
-                    this.setState({ totalMinted: data })
-                }).catch((err) => {
-                    console.log(err)
-                })
-
-                this.state.smartContract.methods.maxSupply().call().then((data) => {
-                    this.setState({ maxSupply: data })
-                }).catch((err) => {
-                    console.log(err)
-                })
+                this.getTotals()
             } catch (e) {
                 this.setFeedback('You are on the wrong network! Please connect to ETH mainnet')
             }
@@ -195,13 +200,17 @@ class Mint extends React.Component {
 
             try{
                 this.state.smartContract.methods.totalSupply().call().then((data) => {
-                    console.log(data)
+                    this.setState({
+                        totalMinted: data
+                    })
                 }).catch((err) => {
                     console.log(err)
                 })
     
                 this.state.smartContract.methods.maxSupply().call().then((data) => {
-                    console.log(data)
+                    this.setState({
+                        totalSupply: data
+                    })
                 }).catch((err) => {
                     console.log(err)
                 })
@@ -252,7 +261,7 @@ class Mint extends React.Component {
         var feedback = this.state.feedback
         var claimingNft = this.state.claimingNft
         var totalMinted = this.state.totalMinted
-        var maxSupply = this.state.maxSupply
+        var maxSupply = this.state.totalSupply
 
         return (
             <div>
