@@ -13,6 +13,10 @@
     text-align: center;
 }
 
+.mint-select {
+    width: 300px;
+}
+
 .info {
     text-align: center;
     margin: 0 auto;

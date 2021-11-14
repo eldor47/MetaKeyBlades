@@ -298,8 +298,8 @@ class Mint extends React.Component {
                                         onChange={(e) => this.handleSelect(e)}
                                         options={this.state.typeOptions}
                                         defaultValue={this.state.typeOptions[0]}
-                                        className="basic-multi-select select2"
-                                        classNamePrefix="select"
+                                        className="mint-select select2"
+                                        classNamePrefix="test"
                                     />
                                     <Button
                                         disabled={this.state.claimingNft ? 1 : 0}

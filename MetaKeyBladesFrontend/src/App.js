@@ -5,7 +5,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
+  Link,
+  useHistory
 } from "react-router-dom";
 import {NavDropdown, Navbar, Nav} from 'react-bootstrap';
 import Slideshow from './Slideshow';
@@ -90,6 +91,7 @@ export default function App() {
 }
 
 function Home() {
+  var history = useHistory()
     return (
     <div className="App">
       <div className='aboutUs' id='aboutUs'>
@@ -105,6 +107,7 @@ function Home() {
           When your weapon is bonded to you through the blockchain, you are able to pass through the celestial gates and onto adventure.
           </p>
           <button><a className="joinDisc" href="https://discord.gg/metakeyblades">Join Our Discord</a></button>
+          <button className="joinDisc" onClick={() => history.push('/sword')}>View our Blades</button>
         </div>
         </ScrollAnimation>
         <ScrollAnimation animateIn='bounceIn' animateOut='bounceOut'>
