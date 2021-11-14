@@ -6,7 +6,7 @@ AWS.config.update({region: 'us-west-1'});
 const docClient = new AWS.DynamoDB.DocumentClient()
 const s3 = new AWS.S3()
 
-const infraURL = 'https://rinkeby.infura.io/v3/72f9c4d51d584bba939b58943ec89637'
+const infraURL = 'https://mainnet.infura.io/v3/b030d32a20264a89ad579a59e3bab9e2'
 
 exports.handler = async (event) => {
     //TODO: If revealed == 1500 set showRank on all records to true
@@ -15,7 +15,7 @@ exports.handler = async (event) => {
 
     // Scan all revealed and return highest id
     var lastSword = await getLeastRevealDDB()
-    var lastID = lastSword.name
+    var lastID = lastSword ? lastSword.name : 0
     console.log(lastID)
     
     //Grab swords from lastID -> revealedNum
@@ -78,7 +78,7 @@ async function connect(){
                 SmartContract.abi,
                 // NetworkData.address
                 // //Rinkeby test contract
-                "0x73727B0Cc45cAa049A738c6e4c71207ec967e81c"
+                "0x8bEa2b168fb0E5935bd251B1BccB142FEd006171"
             );
             // Add listeners end
             var total = await SmartContractObj.methods.totalSupply().call()
