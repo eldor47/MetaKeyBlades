@@ -44,6 +44,7 @@ exports.handler = async (event) => {
             await s3.copyObject(copyParamsImg).promise()
             await s3.copyObject(copyParamsJson).promise()
         } catch(e){
+            console.log(e)
             return {
                 errorMessage: "Error moving files!"
             }

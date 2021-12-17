@@ -8,6 +8,9 @@ const { createCanvas, loadImage } = require('canvas');
 const canvas = createCanvas(720, 1080);
 const ctx = canvas.getContext("2d");
 
+const slimeCanvas = createCanvas(512, 512);
+const ctxS = slimeCanvas.getContext("2d");
+
 const rarities = require('./rarity.json');
 const customBlades = require('./customBlades.json');
 
@@ -19,6 +22,7 @@ const saveLayer = async (_canvas, imgName) => {
     try{
         fs.writeFileSync(`./images/combined/images/${imgName}`, _canvas.toBuffer("image/png"));
     } catch (e){
+        console.log(e)
         console.log("File already exists")
     }
 }
@@ -41,6 +45,15 @@ const drawLayer = async (baseImg, gripImg, gemImage, bgImage, qrImage, logoImage
     }
     saveLayer(canvas, imgName)
     ctx.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+const drawLayers = async (layerImages, imgName) => {
+    for(var layer of layerImages){
+        console.log(layer)
+        ctxS.drawImage(layer, 0, 0, 512, 512)
+    }
+    saveLayer(slimeCanvas, imgName)
+    ctxS.clearRect(0, 0, slimeCanvas.width, slimeCanvas.height)
 }
 
 const drawLayerGodly = async (bgImage, qrImage, logoImage, imgName) => {
@@ -299,6 +312,112 @@ async function getCustomIds(total, customSwords){
     console.log(customObjs)
     console.log(randIds);
     return customObjs;
+}
+
+async function generateLayerArray(layerId, filePath, layerName){
+    const files = await fs.promises.readdir( filePath )
+
+    var layers = []
+    for( const file of files ) {
+        var layer = {
+            trait_type: layerName.substring(3, layerName.length),
+            value: file.substring(3, file.length),
+            rarity: 3,
+            filePath: filePath + '/' + file
+        }
+        layers.push(layer)
+    }
+    return layers
+}
+
+async function generateSlimes(totalNum) {
+    var fromPath = './images/slimegame/'
+    var layers = []
+    try {
+        // Get the files as an array
+        const files = await fs.promises.readdir( fromPath );
+
+        // Loop them all with the new for...of
+        var i = 0;
+        for( const file of files ) {
+            // Stat the file to see if we have a file or dir
+            const stat = await fs.promises.stat( fromPath );
+
+            if( stat.isFile() )
+                console.log( "'%s' is a file.", fromPath );
+            else if( stat.isDirectory() ){
+
+                //Push the layers to overall array
+                layers.push(await generateLayerArray(i, fromPath + file, file))
+                console.log( "'%s' is a directory.", fromPath );
+            }
+
+            i++
+
+        } // End for...of
+    }
+    catch( e ) {
+        // Catch anything bad that happens
+        console.error( "We've thrown! Whoops!", e );
+    }
+
+    for(var i = 1; i <= totalNum; i++){
+        var layerImages = []
+        for(var layer of layers){
+            var num = weightedRand(layer)
+            var resultNum = num()
+
+            var layerImage = await loadImage(layer[resultNum].filePath);
+
+            layerImages.push(layerImage)
+         }
+         await drawLayers(layerImages, ('slime/' + i + '.png') )
+    }
+}
+
+async function generateHeros(totalNum, name) {
+    var fromPath = './images/slimegame-heros/Hero 2 512x512/'
+    var layers = []
+    try {
+        // Get the files as an array
+        const files = await fs.promises.readdir( fromPath );
+
+        // Loop them all with the new for...of
+        var i = 0;
+        for( const file of files ) {
+            // Stat the file to see if we have a file or dir
+            const stat = await fs.promises.stat( fromPath );
+
+            if( stat.isFile() )
+                console.log( "'%s' is a file.", fromPath );
+            else if( stat.isDirectory() ){
+
+                //Push the layers to overall array
+                layers.push(await generateLayerArray(i, fromPath + file, file))
+                console.log( "'%s' is a directory.", fromPath );
+            }
+
+            i++
+
+        } // End for...of
+    }
+    catch( e ) {
+        // Catch anything bad that happens
+        console.error( "We've thrown! Whoops!", e );
+    }
+
+    for(var i = 1; i <= totalNum; i++){
+        var layerImages = []
+        for(var layer of layers){
+            var num = weightedRand(layer)
+            var resultNum = num()
+
+            var layerImage = await loadImage(layer[resultNum].filePath);
+
+            layerImages.push(layerImage)
+         }
+         await drawLayers(layerImages, ('slime-heros/Hero 2 512x512/' + i + '.png') )
+    }
 }
 
 async function generateCombinationsRarity(){
@@ -580,7 +699,10 @@ function weightedRand(spec) {
   }
 
 
-generateCombinationsRarity();
+//generateCombinationsRarity();
+
+//generateSlimes(100);
+generateHeros(50);
 //      console.log(getCustomIds(1500, customBlades))
 //   generateBackgroundCombos("00_BlueYellow");
 //   generateBackgroundCombos("01_GunMetal");

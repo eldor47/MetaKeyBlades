@@ -6,6 +6,8 @@ import { Button, InputGroup, FormControl, OverlayTrigger, Tooltip, Pagination, C
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowUp, faArrowDown, faDiceFive } from '@fortawesome/free-solid-svg-icons'
 
+import Treasure from "../treasurehunt/treasure";
+
 
 import Select from 'react-select';
 
@@ -588,7 +590,7 @@ class Sword extends React.Component {
           </div>
           {this.state.loading ? (
             <div className='sword-holder'>
-              <div class="lds-dual-ring"></div>
+              <div className="lds-dual-ring"></div>
             </div>
           ) : (
             <div className='sword-holder'>
@@ -604,10 +606,11 @@ class Sword extends React.Component {
 
           <Modal size='lg' show={this.state.show} onHide={() => this.handleClose()}>
             <Modal.Header className='sword-popup' closeButton>
-              <Modal.Title>{this.getSwordTitle()} <p class='right-modal'>{this.getRank() == 0 ? '' : ('Rank ' + this.getRank())}</p></Modal.Title>
+              <Modal.Title>{this.getSwordTitle()} <p className='right-modal'>{this.getRank() == 0 ? '' : ('Rank ' + this.getRank())}</p></Modal.Title>
             </Modal.Header>
             <Modal.Body className='sword-popup dark'>
               {this.getSwordDetails()}
+              <Treasure bladeId={parseInt(this.state.selectedSword)+1}></Treasure>
             </Modal.Body>
             <Modal.Footer className='sword-popup'>
               <Button variant="secondary" onClick={() => this.handleClose()}>

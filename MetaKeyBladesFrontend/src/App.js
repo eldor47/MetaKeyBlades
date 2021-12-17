@@ -129,7 +129,7 @@ function Home() {
             <h1>FAQ 🤔</h1>
             </ScrollAnimation>
             <p className="listItem"><h2>What are the details of the sale?</h2></p>
-            <p className="listItem">There will be a total supply of 1500 unique tokens. The price will be 0.06 ETH.</p>
+            <p className="listItem">There will be a total supply of 1500 unique tokens. The price will be 0.03 ETH.</p>
             <p className="listItem"><h2>When will I be able to mint?</h2></p>
             <p className="listItem">The public sale is Nov. 12, 2021</p>
             <p className="listItem"><h2>Is there a Presale or Whitelist?</h2></p>

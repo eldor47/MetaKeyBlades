@@ -95,7 +95,7 @@ class Mint extends React.Component {
         try {
             smartContract.methods.mint(wallet, _amount).send({
                 from: wallet,
-                value: web3.utils.toWei((0.06 * _amount).toString(), "ether")
+                value: web3.utils.toWei((0.03 * _amount).toString(), "ether")
             }).then((receipt) => {
                 this.setFeedback('Token(s) Successfully Minted!')
                 this.setClaimingNft(false)
@@ -268,7 +268,7 @@ class Mint extends React.Component {
                 <div className="mint">
                     <div className='info'>
                         <h1>Mint a MetaKey Blade</h1>
-                        <p>Mint price is 0.06 ETH for each ERC721 Token</p>
+                        <p>Mint price is 0.03 ETH for each ERC721 Token</p>
                     </div>
                     <Button id="walletButton" className='btn2' onClick={this.connectWalletPressed}>
                         {wallet.length > 0 ? (
@@ -282,11 +282,11 @@ class Mint extends React.Component {
                     </Button>
                     <div className='minter'>
                         {wallet.length > 0 ? (
-                            <div class='btn-holder'>
-                                <div class='total'>
+                            <div className='btn-holder'>
+                                <div className='total'>
                                     <h2>{totalMinted ? totalMinted : 0}/{maxSupply ? maxSupply : 1500} minted</h2>
                                 </div>
-                                <div class='progress'>
+                                <div className='progress'>
                                     <ProgressBar now={((totalMinted / maxSupply) * 100)} />
                                 </div>
                                 <h2 style={{ textAlign: "center", marginTop: "20px" }}>
@@ -316,8 +316,8 @@ class Mint extends React.Component {
                         ) : (<></>)}
                     </div>
                     <b><p style={{ textAlign: "center", color: "darkred" }}>{feedback}</p></b>
-                    <div class='img-holder'>
-                        <img class='slideshowGIF' src={swordGIF}></img>
+                    <div className='img-holder'>
+                        <img className='slideshowGIF' src={swordGIF}></img>
                     </div>
                 </div>
                 <div className='footer'>
