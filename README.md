@@ -10,3 +10,10 @@ To start the frontend simply in the MetaKeyBladesFrontend directory
 
 ```npm install```
 ```npm start```
+
+The project also includes and image randomizer inside the MetaKeyBladesImageGenerator directory
+
+To generate some images run in the MetaKeyBladesImageGenerator directory
+
+```npm install```
+```node index.js```
